@@ -11,5 +11,9 @@ import java.io.Serializable;
  * @author matim
  */
 public class Empleado implements Serializable {
-    
+    /**
+     * Attr:
+     * private Manager manager; -> Si se modifica este attr se debe quitar al empleado de la lista del Manager viejo y agregarlo a la lista del nuevo
+     * 
+     */
 }

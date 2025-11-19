@@ -1,7 +1,7 @@
-package interfaz.areas;
+package interfaz.managers;
 
 import logica.Sistema;
-import dominio.Area;
+import dominio.Manager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,39 +10,40 @@ import java.util.ArrayList;
  *
  * @author matim
  */
-public class VentanaAreasBaja extends JFrame {
+public class VentanaManagersBaja extends JFrame {
     private Sistema sistema;
     
-    private JList<String> listaAreas;
+    private JList<String> listaManagers;
     private DefaultListModel<String> modeloLista;
     
     private JLabel labelTitulo;
     private JLabel labelNombre;
-    private JLabel labelDescripcion;
-    private JLabel labelPresupuesto;
+    private JLabel labelCedula;
+    private JLabel labelAntiguedad;
+    private JLabel labelCelular;
     
     private JButton botonEliminar;
     private JButton botonCancelar;
     
-    private Area areaSeleccionada;
+    private Manager managerSeleccionado;
     
     /*
     * CASOS NO CONSIDERADOS:
-    * Manejo de cuando no hay Areas sin empleados
+    * Manejo de cuando no hay managers sin empleados
     * Manejo cuando sistema devuelva lista vacía
     */
     
-    public VentanaAreasBaja(Sistema sistema) {
+    public VentanaManagersBaja(Sistema sistema) {
         this.sistema = sistema;
         
         configurarVentana();
         inicializarComponentes();
         inicializarEventos();
-        actualizarListaAreas();
+        actualizarListaManagers();
     }
     
     private void configurarVentana() {
-        setTitle("MARTRE - Baja de área");
+        setTitle("MARTRE - Baja de manager");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(700, 350);
         setLocationRelativeTo(null);
@@ -53,29 +54,32 @@ public class VentanaAreasBaja extends JFrame {
     private void inicializarComponentes() {
         // Parte izquierda (mostrar lista de areas sin empleados)
         modeloLista = new DefaultListModel<>();
-        listaAreas = new JList<>(modeloLista);
-        listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas sin empleados"));
-        listaAreas.setFont(new Font("", Font.BOLD, 16));
-        JScrollPane scrollLista = new JScrollPane(listaAreas);
+        listaManagers = new JList<>(modeloLista);
+        listaManagers.setBorder(BorderFactory.createTitledBorder("Managers sin empleados a cargo"));
+        listaManagers.setFont(new Font("", Font.BOLD, 16));
+        JScrollPane scrollLista = new JScrollPane(listaManagers);
         
         // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
-        labelTitulo = new JLabel("BAJA DE ÁREA");
+        labelTitulo = new JLabel("BAJA DE MANAGER");
         labelTitulo.setFont(new Font("", Font.BOLD, 16));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
-        labelDescripcion = new JLabel("<html></html>");
-        labelPresupuesto = new JLabel("<html></html>");
+        labelCedula = new JLabel("<html></html>");
+        labelAntiguedad = new JLabel("<html></html>");
+        labelCelular = new JLabel("<html></html>");
         
-        JPanel panelDatos = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel panelDatos = new JPanel(new GridLayout(4, 2, 10, 10));
         panelDatos.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
         
         panelDatos.add(new JLabel("Nombre:"));
         panelDatos.add(labelNombre);
-        panelDatos.add(new JLabel("Descripción:"));
-        panelDatos.add(labelDescripcion);
-        panelDatos.add(new JLabel("Presupuesto:"));
-        panelDatos.add(labelPresupuesto);
+        panelDatos.add(new JLabel("Cédula:"));
+        panelDatos.add(labelCedula);
+        panelDatos.add(new JLabel("Antigüedad:"));
+        panelDatos.add(labelAntiguedad);
+        panelDatos.add(new JLabel("Celular:"));
+        panelDatos.add(labelCelular);
         
         botonEliminar = new JButton("Eliminar");
         botonCancelar = new JButton("Cancelar");
@@ -97,71 +101,83 @@ public class VentanaAreasBaja extends JFrame {
         
         // Agregar lista y Panel Derecho al Layout Principal
         add(panelContenedor);
-        
-        actualizarListaAreas();
+        actualizarListaManagers();
     }
     
     private void inicializarEventos() {
         // Eventos a inicilizar: Mostrar Area seleccionada, boton eliminar area, boton cancelar.
-        listaAreas.addListSelectionListener(e -> {
+        listaManagers.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                String nombre = listaAreas.getSelectedValue();
+                String nombre = listaManagers.getSelectedValue();
                 if (nombre != null) {
-                    areaSeleccionada = sistema.getAreaPorNombre(nombre);
-                    mostrarDatosArea(areaSeleccionada);
+                    managerSeleccionado = sistema.getManagerPorNombre(nombre);
+                    mostrarDatosManager(managerSeleccionado);
                 }
             }
         });
         
-        botonEliminar.addActionListener(e -> eliminarArea());
+        botonEliminar.addActionListener(e -> eliminarManager());
         botonCancelar.addActionListener(e -> dispose());
     }
     
-    private void actualizarListaAreas() {
+    private void actualizarListaManagers() {
         modeloLista.clear();
         
-        ArrayList<Area> lista = sistema.getAreasSinEmpleados();
-        for (Area a : lista) {
-            modeloLista.addElement(a.getNombre());
+        ArrayList<Manager> managersSinEmpleados = sistema.getManagersSinEmpleados();
+        for (Manager m : managersSinEmpleados) {
+            modeloLista.addElement(m.getNombre());
         }
     }
     
-    private void mostrarDatosArea(Area area) {
-        labelNombre.setText("<html>" + area.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
-        labelDescripcion.setText("<html>" + area.getDescripcion() + "</html>");
-        labelPresupuesto.setText("<html>" + area.getPresupuesto() + "</html>");
+    private void mostrarDatosManager(Manager manager) {
+        labelNombre.setText("<html>" + manager.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
+        labelCedula.setText("<html>" + manager.getCedula() + "</html>");
+        labelAntiguedad.setText("<html>" + manager.getAntiguedad() + "</html>");
+        labelCelular.setText("<html>" + manager.getCelular() + "</html>");
     }
     
-    private void eliminarArea() {
-        if (areaSeleccionada == null) {
+    private void eliminarManager() {
+        if (managerSeleccionado == null) {
             return;
         }
         
         int confirmar = JOptionPane.showConfirmDialog(
                 this,
-                "¿Eliminar el área \"" + areaSeleccionada.getNombre() + "\"?",
+                "¿Eliminar el manager \"" + managerSeleccionado.getNombre() + "\"?",
                 "Confirmar eliminar",
                 JOptionPane.YES_NO_OPTION
         );
         
         if (confirmar == JOptionPane.YES_OPTION) {
-            sistema.eliminarArea(areaSeleccionada);
+            boolean eliminado = sistema.eliminarManager(managerSeleccionado);
+            
+            if (!eliminado) {
+                // No se elimino porque tiene empleados a cargo
+                JOptionPane.showMessageDialog(this,
+                    "No es posible eliminar este manager.\n"
+                    + "Tiene empleados a cargo.",
+                    "Error al eliminar",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
             
             JOptionPane.showMessageDialog(this,
-                    "Área eliminada con éxito.",
+                    "Manager eliminado con éxito.",
                     "Eliminar",
                     JOptionPane.INFORMATION_MESSAGE
             );
             
-            areaSeleccionada = null;
+            managerSeleccionado = null;
             limpiarDatosMostrados();
-            actualizarListaAreas();
+            actualizarListaManagers();
         }
     }
     
     private void limpiarDatosMostrados() {
         labelNombre.setText("");
-        labelDescripcion.setText("");
-        labelPresupuesto.setText("");
+        labelCedula.setText("");
+        labelAntiguedad.setText("");
+        labelCelular.setText("");
     }
 }

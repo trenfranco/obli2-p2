@@ -3,6 +3,7 @@ package interfaz;
 import interfaz.areas.VentanaAreasAlta;
 import interfaz.areas.VentanaAreasBaja;
 import interfaz.areas.VentanaAreasModificar;
+import interfaz.managers.VentanaManagersAlta;
 import logica.Sistema;
 import javax.swing.*;
 import java.awt.event.*;
@@ -83,7 +84,6 @@ public class VentanaMenuPrincipal extends JFrame {
             }
         });
         
-        
         menuAreas.add(itemAltaArea);
         menuAreas.add(itemBajaArea);
         menuAreas.add(itemModArea);
@@ -95,6 +95,14 @@ public class VentanaMenuPrincipal extends JFrame {
         JMenuItem itemAltaManager = new JMenuItem("Alta");
         JMenuItem itemBajaManager = new JMenuItem("Baja");
         JMenuItem itemModManager = new JMenuItem("Modificar");
+        
+        // Mostrar ventanas al hacer click en la funcionalidad:
+        itemAltaManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaManagersAlta(sistema).setVisible(true);
+            }
+        });
         
         menuManagers.add(itemAltaManager);
         menuManagers.add(itemBajaManager);
