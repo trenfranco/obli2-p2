@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -49,7 +48,6 @@ public class VentanaAreasAlta extends JFrame {
     
     private void inicializarComponentes() {
         // Declaracion de elementos
-        
         // Parte izquierda (Mostrar todas las areas por nombre en orden creciente)
         modeloLista = new DefaultListModel<>();
         listaAreas = new JList<>(modeloLista);

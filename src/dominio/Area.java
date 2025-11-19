@@ -20,6 +20,14 @@ public class Area implements Serializable {
     public String getNombre() {
         return this.nombre;
     }
+    
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+    
+    public double getPresupuesto() {
+        return this.presupuesto;
+    }
     // getters/setters
     // toString
 }
