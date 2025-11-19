@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
+
 import java.io.Serializable;
 
 /**
@@ -10,8 +7,19 @@ import java.io.Serializable;
  * @author Matías Martínez y Franco Trenche
  */
 public class Area implements Serializable {
-    // Atributos
-    // Constructor
+    private String nombre;
+    private String descripcion;
+    private double presupuesto;
+    
+    public Area(String nombre, String descripcion, double presupuesto) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.presupuesto = presupuesto;
+    }
+    
+    public String getNombre() {
+        return this.nombre;
+    }
     // getters/setters
     // toString
 }

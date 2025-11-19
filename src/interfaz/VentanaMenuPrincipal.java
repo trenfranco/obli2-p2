@@ -1,5 +1,6 @@
 package interfaz;
 
+import interfaz.areas.VentanaAreasAlta; 
 import logica.Sistema;
 import javax.swing.*;
 import java.awt.event.*;
@@ -15,8 +16,9 @@ public class VentanaMenuPrincipal extends JFrame {
 
     public VentanaMenuPrincipal(Sistema sistema) {
         this.sistema = sistema;
-        inicializarComponentes();
+        
         configurarVentana();
+        inicializarComponentes();
     }
     
     private void configurarVentana() {
@@ -38,6 +40,14 @@ public class VentanaMenuPrincipal extends JFrame {
         JMenuItem itemBajaArea = new JMenuItem("Baja");
         JMenuItem itemModArea = new JMenuItem("Modificar");
         JMenuItem itemMovArea = new JMenuItem("Realizar Movimiento");
+        
+        // Mostrar ventana al hacer click en la funcionalidad:
+        itemAltaArea.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaAreasAlta(sistema).setVisible(true);
+            }
+        });
         
         menuAreas.add(itemAltaArea);
         menuAreas.add(itemBajaArea);

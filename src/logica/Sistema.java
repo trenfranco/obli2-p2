@@ -25,5 +25,14 @@ public class Sistema implements Serializable {
         movimientos = new ArrayList<>();
     }
     
-    // metodos
+    /** Crear metodo agregarArea. Tiene que chequear la existencia por area.nombre en el ArrayList areas.
+     * Si no existe se agrega, sino devuelve el error.
+     */
+    public boolean agregarArea(Area a) {
+        return true;
+    }
+    
+    public ArrayList<Area> getAreas() {
+        return areas;
+    }
 }
