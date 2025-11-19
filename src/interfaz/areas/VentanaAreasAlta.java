@@ -5,7 +5,7 @@ import dominio.Area;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -64,7 +64,7 @@ public class VentanaAreasAlta extends JFrame {
         
         labelNombre = new JLabel("Nombre del Área:");
         labelDescripcion = new JLabel("Descripción:");
-        labelPresupuesto = new JLabel("<html>Presupuesto inicial:<br>(en USD)</html>"); // JLabel con HTML para poder mostrar texto en otra linea
+        labelPresupuesto = new JLabel("<html>Presupuesto anual:<br>(en USD)</html>"); // JLabel con HTML para poder mostrar texto en otra linea
         
         textoNombre = new JTextField(20);
         textoDescripcion = new JTextField(40);
@@ -159,11 +159,7 @@ public class VentanaAreasAlta extends JFrame {
     
     public void actualizarLista() {
         modeloLista.clear();
-        
-        List<Area> ordenadas = sistema.getAreas()
-                                      .stream()
-                                      .sorted((a, b) -> a.getNombre().compareToIgnoreCase(b.getNombre()))
-                                      .collect(Collectors.toList());
+        ArrayList<Area> ordenadas = new ArrayList<>(sistema.getAreasOrdenadas());
         for (Area a : ordenadas) {
             modeloLista.addElement(a.getNombre());
         }

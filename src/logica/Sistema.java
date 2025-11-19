@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 
 import dominio.*;
@@ -25,14 +21,21 @@ public class Sistema implements Serializable {
         movimientos = new ArrayList<>();
     }
     
-    /** Crear metodo agregarArea. Tiene que chequear la existencia por area.nombre en el ArrayList areas.
+    /** Crear metodo agregarArea. Tiene que chequear la existencia comparando area.nombre en el ArrayList areas.
      * Si no existe se agrega, sino devuelve el error.
      */
     public boolean agregarArea(Area a) {
         return true;
     }
     
+    // metodo que muestre todas las areas
     public ArrayList<Area> getAreas() {
         return areas;
+    }
+    
+    // implementar metodo que cree un nuevo arrayList con las areas guardadas ordenadas por nombre creciente
+    public ArrayList<Area> getAreasOrdenadas() {
+        ArrayList<Area> ordenadas = new ArrayList<>();
+        return ordenadas;
     }
 }
