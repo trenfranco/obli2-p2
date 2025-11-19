@@ -51,14 +51,14 @@ public class VentanaManagersAlta extends JFrame {
     
     private void inicializarComponentes() {
         // Declaracion de elementos
-        // Parte izquierda (Mostrar todas las areas por nombre en orden creciente)
+        // Parte izquierda (Mostrar todas los managers ordenados por años de antiguedad decreciente)
         modeloLista = new DefaultListModel<>();
         listaManagers = new JList<>(modeloLista);
         listaManagers.setBorder(BorderFactory.createTitledBorder("Managers existentes"));
         listaManagers.setFont(new Font("", Font.BOLD, 16));
         JScrollPane scrollLista = new JScrollPane(listaManagers);
         
-        // Parte derecha (Formulario para crear area) 
+        // Parte derecha (Formulario para crear Manager) 
         labelTitulo = new JLabel("ALTA DE MANAGER");
         labelTitulo.setFont(new Font("", Font.BOLD, 16));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,7 +151,7 @@ public class VentanaManagersAlta extends JFrame {
             return;
         }
         
-        // Crear area nueva y guardarla en el Sistema si el nombre no existe.
+        // Crear Manager nuevo y guardarlo en el Sistema si la cedula no esta en el sistema (clases Empleado/Manager).
         Manager nuevo = new Manager(nombre, cedula, antiguedad, celular);
         boolean guardado = sistema.agregarManager(nuevo);
         if (!guardado) {

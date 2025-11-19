@@ -52,14 +52,14 @@ public class VentanaManagersBaja extends JFrame {
     }
     
     private void inicializarComponentes() {
-        // Parte izquierda (mostrar lista de areas sin empleados)
+        // Parte izquierda (mostrar lista de managers sin empleados)
         modeloLista = new DefaultListModel<>();
         listaManagers = new JList<>(modeloLista);
         listaManagers.setBorder(BorderFactory.createTitledBorder("Managers sin empleados a cargo"));
         listaManagers.setFont(new Font("", Font.BOLD, 16));
         JScrollPane scrollLista = new JScrollPane(listaManagers);
         
-        // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
+        // Parte derecha (mostrar informacion del Manager seleccionado y permitir Eliminar)
         labelTitulo = new JLabel("BAJA DE MANAGER");
         labelTitulo.setFont(new Font("", Font.BOLD, 16));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,7 +105,7 @@ public class VentanaManagersBaja extends JFrame {
     }
     
     private void inicializarEventos() {
-        // Eventos a inicilizar: Mostrar Area seleccionada, boton eliminar area, boton cancelar.
+        // Eventos a inicilizar: Mostrar Manager seleccionada, boton eliminar Manager, boton cancelar.
         listaManagers.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 String nombre = listaManagers.getSelectedValue();
