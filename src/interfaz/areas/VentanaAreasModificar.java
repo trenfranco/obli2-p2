@@ -37,7 +37,7 @@ public class VentanaAreasModificar extends JFrame {
     
     private void configurarVentana() {
         setTitle("MARTRE - Modificar área");
-        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(700, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

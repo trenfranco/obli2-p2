@@ -38,7 +38,7 @@ public class VentanaAreasBaja extends JFrame {
     
     private void configurarVentana() {
         setTitle("MARTRE - Baja de área");
-        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(700, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -44,7 +44,7 @@ public class VentanaMenuPrincipal extends JFrame {
     
     private void configurarVentana() {
         setTitle("MARTRE - Menú Principal");
-        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

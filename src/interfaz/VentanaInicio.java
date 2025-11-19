@@ -24,7 +24,7 @@ public class VentanaInicio extends JFrame {
     
     private void configurarVentana() {
         setTitle("ERP - MARTRE");
-        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,10 +45,10 @@ public class VentanaInicio extends JFrame {
         labelFranco.setHorizontalAlignment(SwingConstants.CENTER);
         labelMatias.setHorizontalAlignment(SwingConstants.CENTER);
         labelObligatorio.setHorizontalAlignment(SwingConstants.CENTER);
-        labelObligatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        labelObligatorio.setFont(new Font("", Font.BOLD, 14));
 
         // Insertar imagen (Escalando el tamaño)
-        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png"));
+        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/interfaz/images/logo.png"));
         Image imagenOriginal = iconoOriginal.getImage();
         // Escalar proporcionalmente (ancho = -1 para mantener la relación de aspecto)
         Image imagenEscalada = imagenOriginal.getScaledInstance(-1, 350, Image.SCALE_SMOOTH);
