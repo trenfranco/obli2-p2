@@ -130,19 +130,24 @@ public class VentanaManagersAlta extends JFrame {
     public void guardarManager() {
         String nombre = textoNombre.getText().trim();
         String cedula = textoCedula.getText().trim();
-        String antiguedad = textoAntiguedad.getText().trim();
+        String antiguedadStr = textoAntiguedad.getText().trim();
         String celular = textoCelular.getText().trim();
         
-        if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El nombre del manager no puede estar vacío.");
+        if (nombre.isEmpty() || cedula.isEmpty() || antiguedadStr.isEmpty() || celular.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        double presupuesto;
+        // validar que la antiguedad sea un entero
+        int antiguedad;
         try {
-            presupuesto = Double.parseDouble(presupuestoStr);
+            antiguedad = Integer.parseInt(antiguedadStr);
+            if (antiguedad < 0) {
+                JOptionPane.showMessageDialog(this, "La antigüedad no puede ser negativa.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Presupuesto inválido, debe ser un número.");
+            JOptionPane.showMessageDialog(this, "La antigüedad debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -152,7 +157,7 @@ public class VentanaManagersAlta extends JFrame {
         if (!guardado) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Esta cédula ya se encuentra registrada.\nIngrese una cédula distinta.",
+                    "Ya existe un manager registrado con esta cédula.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE
             );
