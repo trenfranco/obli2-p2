@@ -4,14 +4,13 @@ import logica.Sistema;
 import dominio.Area;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
  *
  * @author matim
  */
-public class VentanaAreasBaja extends JFrame {
+public class VentanaAreasModificar extends JFrame {
     private Sistema sistema;
     
     private JList<String> listaAreas;
@@ -19,15 +18,15 @@ public class VentanaAreasBaja extends JFrame {
     
     private JLabel labelTitulo;
     private JLabel labelNombre;
-    private JLabel labelDescripcion;
+    private JTextArea textoDescripcion;
     private JLabel labelPresupuesto;
     
-    private JButton botonEliminar;
+    private JButton botonModificar;
     private JButton botonCancelar;
     
     private Area areaSeleccionada;
     
-    public VentanaAreasBaja(Sistema sistema) {
+    public VentanaAreasModificar(Sistema sistema) {
         this.sistema = sistema;
         
         configurarVentana();
@@ -37,7 +36,7 @@ public class VentanaAreasBaja extends JFrame {
     }
     
     private void configurarVentana() {
-        setTitle("MARTRE - Baja de área");
+        setTitle("MARTRE - Modificar área");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
         setSize(700, 350);
         setLocationRelativeTo(null);
@@ -49,18 +48,24 @@ public class VentanaAreasBaja extends JFrame {
         // Parte izquierda (mostrar lista de areas sin empleados)
         modeloLista = new DefaultListModel<>();
         listaAreas = new JList<>(modeloLista);
-        listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas sin empleados"));
+        listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas existentes"));
         listaAreas.setFont(new Font("", Font.BOLD, 16));
         JScrollPane scrollLista = new JScrollPane(listaAreas);
         
         // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
-        labelTitulo = new JLabel("BAJA DE ÁREA");
+        labelTitulo = new JLabel("MODIFICAR ÁREA");
         labelTitulo.setFont(new Font("", Font.BOLD, 16));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
-        labelDescripcion = new JLabel("<html></html>");
+        labelNombre.setForeground(Color.GRAY);
+        textoDescripcion = new JTextArea(3, 30);
+        textoDescripcion.setLineWrap(true);
+        textoDescripcion.setWrapStyleWord(true);
+        textoDescripcion.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         labelPresupuesto = new JLabel("<html></html>");
+        labelPresupuesto.setForeground(Color.GRAY);
+
         
         JPanel panelDatos = new JPanel(new GridLayout(3, 2, 10, 10));
         panelDatos.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
@@ -68,15 +73,15 @@ public class VentanaAreasBaja extends JFrame {
         panelDatos.add(new JLabel("Nombre:"));
         panelDatos.add(labelNombre);
         panelDatos.add(new JLabel("Descripción:"));
-        panelDatos.add(labelDescripcion);
+        panelDatos.add(new JScrollPane(textoDescripcion));
         panelDatos.add(new JLabel("Presupuesto:"));
         panelDatos.add(labelPresupuesto);
         
-        botonEliminar = new JButton("Eliminar");
+        botonModificar = new JButton("Modificar");
         botonCancelar = new JButton("Cancelar");
         
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        panelBotones.add(botonEliminar);
+        panelBotones.add(botonModificar);
         panelBotones.add(botonCancelar);
         
         JPanel panelDerecho = new JPanel(new BorderLayout());
@@ -108,7 +113,7 @@ public class VentanaAreasBaja extends JFrame {
             }
         });
         
-        botonEliminar.addActionListener(e -> eliminarArea());
+        botonModificar.addActionListener(e -> modificarArea());
         botonCancelar.addActionListener(e -> dispose());
     }
     
@@ -123,40 +128,41 @@ public class VentanaAreasBaja extends JFrame {
     
     private void mostrarDatosArea(Area area) {
         labelNombre.setText("<html>" + area.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
-        labelDescripcion.setText("<html>" + area.getDescripcion() + "</html>");
+        textoDescripcion.setText("<html>" + area.getDescripcion() + "</html>");
         labelPresupuesto.setText("<html>" + area.getPresupuesto() + "</html>");
     }
     
-    private void eliminarArea() {
+    private void modificarArea() {
         if (areaSeleccionada == null) {
             return;
         }
         
         int confirmar = JOptionPane.showConfirmDialog(
                 this,
-                "¿Eliminar el área \"" + areaSeleccionada.getNombre() + "\"?",
-                "Confirmar eliminación",
+                "¿Modificar la descripción del área \"" + areaSeleccionada.getNombre() + "\"?",
+                "Confirmar",
                 JOptionPane.YES_NO_OPTION
         );
         
         if (confirmar == JOptionPane.YES_OPTION) {
-            sistema.eliminarArea(areaSeleccionada);
+            String nuevaDescripcion = textoDescripcion.getText().trim();
+            sistema.modificarDescripcionArea(areaSeleccionada, nuevaDescripcion);
             
             JOptionPane.showMessageDialog(this,
-                    "Área eliminada con éxito.",
-                    "Eliminación",
+                    "Área modificada con éxito.",
+                    "Modificación",
                     JOptionPane.INFORMATION_MESSAGE
             );
-            
-            areaSeleccionada = null;
-            limpiarDatosMostrados();
             actualizarListaAreas();
+            actualizarDatosMostrados();
         }
     }
     
-    private void limpiarDatosMostrados() {
-        labelNombre.setText("");
-        labelDescripcion.setText("");
-        labelPresupuesto.setText("");
+    private void actualizarDatosMostrados() {
+        if (areaSeleccionada != null) {
+            labelNombre.setText("<html>" + areaSeleccionada.getNombre() + "</html>");
+            labelPresupuesto.setText("<html>" + String.valueOf(areaSeleccionada.getPresupuesto()) + "</html>");
+            textoDescripcion.setText("<html>" + areaSeleccionada.getDescripcion() + "</html>");
+        }
     }
 }

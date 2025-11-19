@@ -26,12 +26,12 @@ public class Sistema implements Serializable {
      * Si no existe se agrega, sino devuelve el error.
      */
     public boolean agregarArea(Area a) {
-        return true;
+        return true || false;
     }
     
     // Metodo que elimine un Area.
     public boolean eliminarArea(Area a) {
-        return true;
+        return true || false;
     }
     
     // metodo que muestre todas las areas
@@ -59,5 +59,10 @@ public class Sistema implements Serializable {
     public ArrayList<Area> getAreasSinEmpleados() {
         ArrayList<Area> areasSinEmpleados = new ArrayList<>();
         return areasSinEmpleados;
+    }
+    
+    // Implementar metodo que modifique la descripcion de un area que este dentro de areas. (metodo setDescripcion(desc) de Area)
+    public boolean modificarDescripcionArea(Area area, String nuevaDescripcion) {
+        return true || false;
     }
 }

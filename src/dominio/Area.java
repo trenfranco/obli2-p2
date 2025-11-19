@@ -24,6 +24,9 @@ public class Area implements Serializable {
     public String getDescripcion() {
         return this.descripcion;
     }
+    public void setDescripcion(String nuevaDescripcion) {
+        this.descripcion = nuevaDescripcion;
+    }
     
     public double getPresupuesto() {
         return this.presupuesto;

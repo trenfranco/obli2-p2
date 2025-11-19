@@ -2,9 +2,11 @@ package interfaz;
 
 import interfaz.areas.VentanaAreasAlta;
 import interfaz.areas.VentanaAreasBaja;
+import interfaz.areas.VentanaAreasModificar;
 import logica.Sistema;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.*;
 
 /**
  *
@@ -19,11 +21,30 @@ public class VentanaMenuPrincipal extends JFrame {
         this.sistema = sistema;
         
         configurarVentana();
+        // Imagen de fondo del menu principal
+        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/interfaz/images/fondoMenu.jpg"));
+        Image imagenOriginal = iconoOriginal.getImage();
+        
+        // Escalar imagen al tamaño de la ventana
+        Image imagenEscalada = imagenOriginal.getScaledInstance(
+                getWidth(),
+                getHeight(),
+                Image.SCALE_SMOOTH
+        );
+        
+        // Crear JLabel con el fondo escalado
+        ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
+        JLabel fondo = new JLabel(iconoEscalado);
+        
+        fondo.setLayout(new BorderLayout());
+        setContentPane(fondo);
+        
         inicializarComponentes();
     }
     
     private void configurarVentana() {
         setTitle("MARTRE - Menú Principal");
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +74,12 @@ public class VentanaMenuPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new VentanaAreasBaja(sistema).setVisible(true);
+            }
+        });
+        itemModArea.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaAreasModificar(sistema).setVisible(true);
             }
         });
         

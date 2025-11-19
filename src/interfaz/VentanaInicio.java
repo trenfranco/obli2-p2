@@ -24,6 +24,7 @@ public class VentanaInicio extends JFrame {
     
     private void configurarVentana() {
         setTitle("ERP - MARTRE");
+        setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logoV1.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
