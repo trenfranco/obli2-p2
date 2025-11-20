@@ -4,13 +4,14 @@
  */
 package dominio;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 
 /**
  *
  * @author Usuario
  */
-public class Departamento {
+public class Area implements Serializable {
     private static int contador_ids = 1;
     
     int id;
@@ -19,7 +20,7 @@ public class Departamento {
     ArrayList<Empleado> integrantes = new ArrayList<>();
     String descripcion;
     
-    public Departamento(int id, String nombre, int presupuesto_anual, String descripcion) {
+    public Area(String nombre, int presupuesto_anual, String descripcion) {
         this.id = contador_ids;
         contador_ids++;
         
