@@ -68,8 +68,10 @@ public class Sistema implements Serializable {
     
     // Metodos de manejo de Managers
     // Crear metodo public boolean agregarManager(Manager m) -> Devolver true || false si se crea (antes de agregar verificar que ningun empleado/manager tiene esa cédula)
+    // Crear metodo getManagers() -> devuelve una nueva lista con todos los managers.
     // crear metodo getManagersOrdenados() -> Devolver nueva lista de managers, ordenados por antiguedad decr.
-    // Crear metodo getManagerPorNombre(nombre) -> devolver obj Manager de la lista managers filtrando por nombre.
+    // Crear metodo getManagerPorNombre(String nombre) -> devolver obj Manager de la lista managers filtrando por nombre.
     // crear metodo public ArrayList<Manager> getManagersSinEmpleados() -> Crear lista nueva y filtrar solo managers que no tienen empleados a cargo.
     // crear metodo public boolean eliminarManager(Manager m) -> elimina el manager a traves de su obj solo si no tiene empleados, sino return false.
+    // crear metodo modificarCelularManager(Manager managerSeleccionado, String nuevoCelular) -> Cambia el celular del manager usando Manager.setCelular(String nuevoCelular)
 }

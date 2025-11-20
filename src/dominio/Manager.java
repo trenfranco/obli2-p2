@@ -10,7 +10,7 @@ public class Manager implements Serializable {
     /**
      * Attr:
      * Nombre
-     * Antiguedad (en años)
+     * int Antiguedad (en años)
      * ci (debe ser única entre managers y empleados, no se realiza ninguna validación de formato)
      * celular
      * ArrayList<Empleado> empleadosACargo;
@@ -21,4 +21,5 @@ public class Manager implements Serializable {
     // crear metodo getCedula()
     // crear metodo getAntiguedad()
     // crear metodo getCelular()
+    // crear metodo setCelular(String nuevoCelular)
 }
