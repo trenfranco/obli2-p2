@@ -14,19 +14,19 @@ public class Empleado {
     private int id;
     private String nombre;
     private int salario;
-    private Departamento departamento;
+    private Area area;
     private Curriculum curriculum;
     private String ci;
     private int telefono;
     private int antiguedad;
     
     
-    Empleado(String nombre, int salario, Departamento departamento, Curriculum curriculum, String ci, int telefono, int antiguedad) {
+    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, int telefono, int antiguedad) {
         this.id = contador_ids;
         contador_ids++;
         
         this.nombre = nombre;
-        this.departamento = departamento;
+        this.area = area;
         this.curriculum = curriculum;
         this.salario = salario;
         this.ci = ci;
@@ -46,8 +46,8 @@ public class Empleado {
         return salario;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public Area getArea() {
+        return area;
     }
 
     public Curriculum getCurriculum() {
@@ -63,8 +63,8 @@ public class Empleado {
         this.salario = salario;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     public void setCurriculum(Curriculum curriculum) {
