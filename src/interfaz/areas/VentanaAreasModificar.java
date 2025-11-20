@@ -52,7 +52,7 @@ public class VentanaAreasModificar extends JFrame {
         listaAreas.setFont(new Font("", Font.BOLD, 16));
         JScrollPane scrollLista = new JScrollPane(listaAreas);
         
-        // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
+        // Parte derecha (mostrar informacion del area seleccionada y permitir modificar la descripcion)
         labelTitulo = new JLabel("MODIFICAR ÁREA");
         labelTitulo.setFont(new Font("", Font.BOLD, 16));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -128,7 +128,7 @@ public class VentanaAreasModificar extends JFrame {
     
     private void mostrarDatosArea(Area area) {
         labelNombre.setText("<html>" + area.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
-        textoDescripcion.setText("<html>" + area.getDescripcion() + "</html>");
+        textoDescripcion.setText(area.getDescripcion());
         labelPresupuesto.setText("<html>" + area.getPresupuesto() + "</html>");
     }
     
@@ -146,6 +146,12 @@ public class VentanaAreasModificar extends JFrame {
         
         if (confirmar == JOptionPane.YES_OPTION) {
             String nuevaDescripcion = textoDescripcion.getText().trim();
+            
+            if (nuevaDescripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "La descripción no puede estar vacía.");
+                return;
+            }
+            
             sistema.modificarDescripcionArea(areaSeleccionada, nuevaDescripcion);
             
             JOptionPane.showMessageDialog(this,
