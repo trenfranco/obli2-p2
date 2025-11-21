@@ -15,13 +15,15 @@ public class Empleado {
     private String nombre;
     private int salario;
     private Area area;
+    private Manager manager;
     private Curriculum curriculum;
     private String ci;
     private int telefono;
     private int antiguedad;
+    private int mes_entrada;
     
     
-    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, int telefono, int antiguedad) {
+    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, int telefono, int antiguedad, Manager manager) {
         this.id = contador_ids;
         contador_ids++;
         
@@ -32,6 +34,17 @@ public class Empleado {
         this.ci = ci;
         this.telefono = telefono;
         this.antiguedad = antiguedad;
+        this.manager = manager;
+        this.mes_entrada = 1;
+        
+    }
+    
+    public int getMesEntrada() {
+        return mes_entrada;
+    }
+    
+    public void setMesEntrada(int i) {
+        this.mes_entrada = i;
     }
     
     public int getId() {
@@ -93,5 +106,13 @@ public class Empleado {
 
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
+    }
+    
+    public Manager getManager(){
+        return manager;
+    }
+    
+    public void setManager(Manager m) {
+        this.manager = m;
     }
 }

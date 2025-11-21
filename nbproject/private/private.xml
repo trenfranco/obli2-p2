@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/erp_obligatorio2/ERP_Obligatorio2.java</file>
             <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/dominio/Empleado.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/dominio/Departamento.java</file>
             <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/dominio/Curriculum.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/logica/Sistema.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/dominio/Area.java</file>
             <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/dominio/Manager.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/cosas/ort/obli-2-p2/ERP_Obligatorio2/src/tests/TestSistema.java</file>
         </group>
     </open-files>
 </project-private>

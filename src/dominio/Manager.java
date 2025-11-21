@@ -22,6 +22,10 @@ public class Manager {
         this.telefono = telefono;
         this.antiguedad = antiguedad;
     }
+    
+    public void agregarEmpleado(Empleado e){
+        this.empleadosACargo.add(e);
+    }
 
     public int getId() {
         return id;

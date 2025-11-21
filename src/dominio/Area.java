@@ -28,6 +28,26 @@ public class Area implements Serializable {
         this.presupuesto_anual = presupuesto_anual;
         this.descripcion = descripcion;
     }
+    
+    public void AgregarEmpleado(Empleado e) {
+        this.integrantes.add(e);
+    }
+    
+    public void EliminarEmpleado(Empleado e) {
+        this.integrantes.remove(e);
+    }
+    
+    public void agregarPresupuesto(int monto) {
+        this.presupuesto_anual += monto;
+    }
+    
+    public void restarPresupuesto(int monto) {
+        this.presupuesto_anual -= monto;
+    }
+    
+    public void agregarEmpleado(Empleado e) {
+        this.integrantes.add(e);
+    }
 
     public int getId() {
         return id;
@@ -41,7 +61,7 @@ public class Area implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getPresupuesto_anual() {
+    public int getPresupuestoAnual() {
         return presupuesto_anual;
     }
 
