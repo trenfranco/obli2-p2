@@ -53,6 +53,58 @@ public class TestSistema {
             System.out.println(area.getNombre());
         }
 
+                System.out.println("\n===== PRUEBA: AREAS SIN EMPLEADOS =====");
+
+        // Todas las áreas están sin empleados porque nunca agregamos empleados
+        for (Area area : sistema.getAreasSinEmpleados()) {
+            System.out.println("Sin empleados: " + area.getNombre());
+        }
+
+
+
+        System.out.println("\n===== PRUEBA: MODIFICAR DESCRIPCION DE AREA =====");
+
+        Area areaMarketing = sistema.getAreaPorNombre("Marketing");
+        boolean modificado = sistema.modificarDescripcionArea(areaMarketing, "Nueva desc de Marketing");
+
+        System.out.println("¿Modificado?: " + modificado);
+        System.out.println("Nueva descripción: " + areaMarketing.getDescripcion());
+
+        
+                System.out.println("\n\n===== PRUEBA DE MANAGERS =====");
+
+        Manager m1 = new Manager("Ana", "111", 1234415 ,5);
+        Manager m2 = new Manager("Luis", "222", 4564711, 10);
+        Manager m3 = new Manager("Maria", "333", 45056561, 2);
+
+        // Agregar managers
+        System.out.println("Agregar Ana: " + sistema.agregarManager(m1)); // true
+        System.out.println("Agregar Luis: " + sistema.agregarManager(m2)); // true
+        System.out.println("Agregar Maria: " + sistema.agregarManager(m3)); // true
+
+        System.out.println("\n===== MANAGERS ORDENADOS POR ANTIGÜEDAD =====");
+        for (Manager m : sistema.getManagersOrdenados()) {
+            System.out.println(m.getNombre() + " - Antiguedad: " + m.getAntiguedad());
+        }
+
+        System.out.println("\n===== MANAGERS SIN EMPLEADOS =====");
+        //m1.agregarEmpleado()
+        for (Manager m : sistema.getManagersSinEmpleados()) {
+            System.out.println("Sin empleados: " + m.getNombre());
+        }
+
+        System.out.println("\n===== ELIMINAR MANAGER =====");
+
+        // Como todos los managers tienen 0 empleados, la eliminación debería funcionar
+        boolean eliminadoManager = sistema.eliminarManager(m2);
+        System.out.println("¿Luis eliminado?: " + eliminadoManager);
+
+        System.out.println("Managers restantes:");
+        for (Manager m : sistema.getManagers()) {
+            System.out.println(m.getNombre());
+        }
+
+        
         System.out.println("\n===== PRUEBAS COMPLETADAS =====");
     }
 }
