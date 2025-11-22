@@ -129,7 +129,7 @@ public class VentanaAreasModificar extends JFrame {
     private void mostrarDatosArea(Area area) {
         labelNombre.setText("<html>" + area.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         textoDescripcion.setText(area.getDescripcion());
-        labelPresupuesto.setText("<html>" + area.getPresupuesto() + "</html>");
+        labelPresupuesto.setText("<html>" + area.getPresupuestoAnual() + "</html>");
     }
     
     private void modificarArea() {
@@ -167,7 +167,7 @@ public class VentanaAreasModificar extends JFrame {
     private void actualizarDatosMostrados() {
         if (areaSeleccionada != null) {
             labelNombre.setText("<html>" + areaSeleccionada.getNombre() + "</html>");
-            labelPresupuesto.setText("<html>" + String.valueOf(areaSeleccionada.getPresupuesto()) + "</html>");
+            labelPresupuesto.setText("<html>" + String.valueOf(areaSeleccionada.getPresupuestoAnual()) + "</html>");
             textoDescripcion.setText("<html>" + areaSeleccionada.getDescripcion() + "</html>");
         }
     }

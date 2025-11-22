@@ -22,16 +22,25 @@ public class Sistema implements Serializable {
     }
     
     // Métodos de manejo de áreas
-    /** Crear metodo agregarArea. Tiene que chequear la existencia comparando area.nombre en el ArrayList areas.
-     * Si no existe se agrega, sino devuelve el error.
-     */
-    public boolean agregarArea(Area a) {
-        return true || false;
+
+    public boolean agregarArea(Area area) {
+       for (Area a: this.areas) {
+           if (area.getNombre().equalsIgnoreCase(a.getNombre()))
+               return false;
+       }
+       this.areas.add(area);
+       return true;
     }
     
     // Metodo que elimine un Area.
-    public boolean eliminarArea(Area a) {
-        return true || false;
+    public boolean eliminarArea(Area area) {
+        for (Area a: this.areas) {
+            if (area.getNombre().equalsIgnoreCase(a.getNombre())) {
+                this.areas.remove(this.areas.indexOf(a));
+                return true;
+            }
+        }
+        return false;
     }
     
     // metodo que muestre todas las areas
@@ -51,27 +60,188 @@ public class Sistema implements Serializable {
     
     // implementar metodo que cree un nuevo arrayList con las areas guardadas ordenadas por nombre creciente
     public ArrayList<Area> getAreasOrdenadas() {
-        ArrayList<Area> ordenadas = new ArrayList<>();
-        return ordenadas;
+        ArrayList<Area> copia = new ArrayList<Area>(areas);
+        int largo = copia.size();
+        
+        for (int j = 0; j < largo; j++) {
+            for (int i = 0; i < largo - 1; i++) {
+                Area aux;
+                
+                String nombre_area = copia.get(i).getNombre();
+                String nombre_area_siguiente = copia.get(i + 1).getNombre();
+
+                if (nombre_area.compareToIgnoreCase(nombre_area_siguiente) >  0) {
+                    aux = copia.get(i);
+                    copia.set(i, copia.get(i + 1));
+                    copia.set(i + 1, aux);
+                }
+
+            }
+        }
+        return copia;
     }
     
     // Implementar metodo que cree un nuevo arrayList que contenga las areas sin Empleados para poder ser eliminadas
     public ArrayList<Area> getAreasSinEmpleados() {
         ArrayList<Area> areasSinEmpleados = new ArrayList<>();
+        
+        for (Area a: this.areas) {
+            if (a.getIntegrantes().size() == 0)
+                areasSinEmpleados.add(a);
+        }
         return areasSinEmpleados;
     }
     
     // Implementar metodo que modifique la descripcion de un area que este dentro de areas. (metodo setDescripcion(desc) de Area)
     public boolean modificarDescripcionArea(Area area, String nuevaDescripcion) {
-        return true || false;
+        for (Area a: this.areas) {
+            if (area.getNombre().equalsIgnoreCase(a.getNombre())) {
+                a.setDescripcion(nuevaDescripcion);
+                return true;
+            }
+        }
+        return false;
     }
     
     // Metodos de manejo de Managers
-    // Crear metodo public boolean agregarManager(Manager m) -> Devolver true || false si se crea (antes de agregar verificar que ningun empleado/manager tiene esa cédula)
-    // Crear metodo getManagers() -> devuelve una nueva lista con todos los managers.
-    // crear metodo getManagersOrdenados() -> Devolver nueva lista de managers, ordenados por antiguedad decr.
-    // Crear metodo getManagerPorNombre(String nombre) -> devolver obj Manager de la lista managers filtrando por nombre.
-    // crear metodo public ArrayList<Manager> getManagersSinEmpleados() -> Crear lista nueva y filtrar solo managers que no tienen empleados a cargo.
-    // crear metodo public boolean eliminarManager(Manager m) -> elimina el manager a traves de su obj solo si no tiene empleados, sino return false.
-    // crear metodo modificarCelularManager(Manager managerSeleccionado, String nuevoCelular) -> Cambia el celular del manager usando Manager.setCelular(String nuevoCelular)
+    
+    public ArrayList<Manager> getManagers(){
+        return this.managers;
+    }
+    
+    public boolean agregarManager(Manager manager) {
+        for (Manager m: this.managers) {
+            if (m.getCedula() == manager.getCedula())
+                return false;
+        }
+        
+        for (Empleado e: this.empleados) {
+            if (e.getCedula() == manager.getCedula())
+                return false;
+        }
+        
+        this.managers.add(manager);
+        return true;
+    }
+    
+    public ArrayList<Manager> getManagersOrdenados() {
+        ArrayList<Manager> copia = new ArrayList<Manager>(this.managers);
+        
+        int largo = copia.size();
+        int antiguedad1, antiguedad2;
+        Manager aux;
+        
+        for (int i=0; i < largo; i++) {
+            for (int j=0; j < largo -1; j++){
+                antiguedad1 = copia.get(j).getAntiguedad();
+                antiguedad2 = copia.get(j+1).getAntiguedad();
+                
+                if (antiguedad1 > antiguedad2) {
+                    aux = copia.get(j);
+                    copia.set(j, copia.get(j+1));
+                    copia.set(j+1, aux);
+                }
+            }
+        }
+        return copia;
+    }
+    
+    public Manager getManagerPorNombre(String nombre) {
+        for (Manager m : this.managers) {
+            if (m.getNombre().equalsIgnoreCase(nombre)) {
+                return m;
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Manager> getManagersSinEmpleados() {
+        ArrayList<Manager> managers_sin_empleados = new ArrayList<Manager>();
+        
+        for (Manager m: this.managers){
+            if (m.getEmpleadosACargo().isEmpty())
+                managers_sin_empleados.add(m);
+        }
+        return managers_sin_empleados;
+    }
+    
+    public boolean eliminarManager(Manager manager) {
+        // repetimos validacion x las dudas, quitar luego
+        for (Manager m: this.managers) {
+            if (m.getCedula().equalsIgnoreCase(manager.getCedula()) && m.getEmpleadosACargo().isEmpty())
+                return this.managers.remove(m);
+        }
+        return false;
+    }
+    
+    // Crear metodo modificarCelularManager(managerSeleccionado, nuevoCelular) -> modificar el cel de un Manager de la lista
+    public void modificarCelularManager(Manager managerSeleccionado, String nuevoCelular) {
+        for (Manager m: this.managers) {
+            if (m == managerSeleccionado) {
+                m.setCelular(nuevoCelular);
+            }
+        }
+    }
+    
+    // Manejo Empleados
+    
+    public boolean agregarEmpleado(Empleado empleado, Manager manager, Area area) {
+        for (Manager m: this.managers) {
+            if (m.getCedula() == empleado.getCedula())
+                return false;
+        }
+        
+        for (Empleado e: this.empleados) {
+            if (e.getCedula() == empleado.getCedula())
+                return false;
+        }
+        
+        this.empleados.add(empleado);
+        manager.agregarEmpleado(empleado);
+        area.agregarEmpleado(empleado);
+        return true;
+    }
+    
+    public ArrayList<Empleado> getEmpleadosOrdenados() {
+        ArrayList<Empleado> copia = new ArrayList<>(this.empleados);
+        int n = copia.size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1; j++) {
+                Empleado e1 = copia.get(j);
+                Empleado e2 = copia.get(j + 1);
+
+                if (e1.getSalario() > e2.getSalario()) {
+                    copia.set(j, e2);
+                    copia.set(j + 1, e1);
+                }
+            }
+        }
+        return copia;
+    }
+    
+    // Logica para movimientos
+    
+    public boolean ejecutarMovimiento(Movimiento movimiento) {
+        Empleado empleado = movimiento.getEmpleado();
+        
+        int presupuesto_necesario = Movimiento.CalcularPresupuestoNecesario(empleado.getSalario(), movimiento.getMes());
+        double presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
+        
+        Area area_origen = empleado.getArea();
+        Area area_destino = movimiento.getAreaDestino();
+        
+        if (presupuesto_area_destino >= presupuesto_necesario) {
+            area_origen.agregarPresupuesto(presupuesto_necesario);
+            area_destino.restarPresupuesto(presupuesto_necesario);
+            
+            area_origen.EliminarEmpleado(empleado);
+            area_destino.AgregarEmpleado(empleado);
+            
+            empleado.setArea(area_destino);
+            
+            return true;
+        }
+        return false;
+    }
 }

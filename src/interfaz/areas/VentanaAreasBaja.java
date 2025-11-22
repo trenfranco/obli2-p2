@@ -129,7 +129,7 @@ public class VentanaAreasBaja extends JFrame {
     private void mostrarDatosArea(Area area) {
         labelNombre.setText("<html>" + area.getNombre() + "</html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         labelDescripcion.setText("<html>" + area.getDescripcion() + "</html>");
-        labelPresupuesto.setText("<html>" + area.getPresupuesto() + "</html>");
+        labelPresupuesto.setText("<html>" + area.getPresupuestoAnual() + "</html>");
     }
     
     private void eliminarArea() {

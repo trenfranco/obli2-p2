@@ -1,36 +1,87 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dominio;
-
+import java.util.ArrayList;
 import java.io.Serializable;
+
 
 /**
  *
- * @author Matías Martínez y Franco Trenche
+ * @author Usuario
  */
 public class Area implements Serializable {
-    private String nombre;
-    private String descripcion;
-    private double presupuesto;
+    private static int contador_ids = 1;
     
-    public Area(String nombre, String descripcion, double presupuesto) {
+    int id;
+    String nombre;
+    double presupuesto_anual;
+    ArrayList<Empleado> integrantes = new ArrayList<>();
+    String descripcion;
+    
+    public Area(String nombre, String descripcion, double presupuesto_anual) {
+        this.id = contador_ids;
+        contador_ids++;
+        
         this.nombre = nombre;
+        this.presupuesto_anual = presupuesto_anual;
         this.descripcion = descripcion;
-        this.presupuesto = presupuesto;
     }
     
+    public void AgregarEmpleado(Empleado e) {
+        this.integrantes.add(e);
+    }
+    
+    public void EliminarEmpleado(Empleado e) {
+        this.integrantes.remove(e);
+    }
+    
+    public void agregarPresupuesto(double monto) {
+        this.presupuesto_anual += monto;
+    }
+    
+    public void restarPresupuesto(double monto) {
+        this.presupuesto_anual -= monto;
+    }
+    
+    public void agregarEmpleado(Empleado e) {
+        this.integrantes.add(e);
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
-    
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPresupuestoAnual() {
+        return presupuesto_anual;
+    }
+
+    public void setPresupuesto_anual(int presupuesto_anual) {
+        this.presupuesto_anual = presupuesto_anual;
+    }
+
+    public ArrayList<Empleado> getIntegrantes() {
+        return integrantes;
+    }
+
+    public void setIntegrantes(ArrayList<Empleado> integrantes) {
+        this.integrantes = integrantes;
+    }
+
     public String getDescripcion() {
-        return this.descripcion;
+        return descripcion;
     }
-    public void setDescripcion(String nuevaDescripcion) {
-        this.descripcion = nuevaDescripcion;
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    
-    public double getPresupuesto() {
-        return this.presupuesto;
-    }
-    // getters/setters
-    // toString
 }
