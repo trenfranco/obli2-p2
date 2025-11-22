@@ -8,18 +8,18 @@ public class Manager {
 
     private int id;
     private String nombre;
-    private String ci;
-    private int telefono;
+    private String cedula;
+    private String celular;
     private int antiguedad;
     private ArrayList<Empleado> empleadosACargo = new ArrayList<>();
 
-    public Manager(String nombre, String ci, int telefono, int antiguedad) {
+    public Manager(String nombre, String ci, int antiguedad, String celular) {
         this.id = contador_ids;
         contador_ids++;
 
         this.nombre = nombre;
-        this.ci = ci;
-        this.telefono = telefono;
+        this.cedula = ci;
+        this.celular = celular;
         this.antiguedad = antiguedad;
     }
     
@@ -35,12 +35,12 @@ public class Manager {
         return nombre;
     }
 
-    public String getCi() {
-        return ci;
+    public String getCedula() {
+        return cedula;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public String getCelular() {
+        return celular;
     }
 
     public int getAntiguedad() {
@@ -55,12 +55,12 @@ public class Manager {
         this.nombre = nombre;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setCedula(String ci) {
+        this.cedula = ci;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setCelular(String telefono) {
+        this.celular = celular;
     }
 
     public void setAntiguedad(int antiguedad) {

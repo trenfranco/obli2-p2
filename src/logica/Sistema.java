@@ -111,12 +111,12 @@ public class Sistema implements Serializable {
     
     public boolean agregarManager(Manager manager) {
         for (Manager m: this.managers) {
-            if (m.getCi() == manager.getCi())
+            if (m.getCedula() == manager.getCedula())
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCi() == manager.getCi())
+            if (e.getCedula() == manager.getCedula())
                 return false;
         }
         
@@ -168,22 +168,31 @@ public class Sistema implements Serializable {
     public boolean eliminarManager(Manager manager) {
         // repetimos validacion x las dudas, quitar luego
         for (Manager m: this.managers) {
-            if (m.getCi().equalsIgnoreCase(manager.getCi()) && m.getEmpleadosACargo().isEmpty())
+            if (m.getCedula().equalsIgnoreCase(manager.getCedula()) && m.getEmpleadosACargo().isEmpty())
                 return this.managers.remove(m);
         }
         return false;
+    }
+    
+    // Crear metodo modificarCelularManager(managerSeleccionado, nuevoCelular) -> modificar el cel de un Manager de la lista
+    public void modificarCelularManager(Manager managerSeleccionado, String nuevoCelular) {
+        for (Manager m: this.managers) {
+            if (m == managerSeleccionado) {
+                m.setCelular(nuevoCelular);
+            }
+        }
     }
     
     // Manejo Empleados
     
     public boolean agregarEmpleado(Empleado empleado, Manager manager, Area area) {
         for (Manager m: this.managers) {
-            if (m.getCi() == empleado.getCi())
+            if (m.getCedula() == empleado.getCedula())
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCi() == empleado.getCi())
+            if (e.getCedula() == empleado.getCedula())
                 return false;
         }
         
@@ -217,7 +226,7 @@ public class Sistema implements Serializable {
         Empleado empleado = movimiento.getEmpleado();
         
         int presupuesto_necesario = Movimiento.CalcularPresupuestoNecesario(empleado.getSalario(), movimiento.getMes());
-        int presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
+        double presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
         
         Area area_origen = empleado.getArea();
         Area area_destino = movimiento.getAreaDestino();

@@ -17,13 +17,13 @@ public class Empleado {
     private Area area;
     private Manager manager;
     private Curriculum curriculum;
-    private String ci;
-    private int telefono;
+    private String cedula;
+    private String celular;
     private int antiguedad;
     private int mes_entrada;
     
     
-    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, int telefono, int antiguedad, Manager manager) {
+    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, String cel, int antiguedad, Manager manager) {
         this.id = contador_ids;
         contador_ids++;
         
@@ -31,8 +31,8 @@ public class Empleado {
         this.area = area;
         this.curriculum = curriculum;
         this.salario = salario;
-        this.ci = ci;
-        this.telefono = telefono;
+        this.cedula = ci;
+        this.celular = cel;
         this.antiguedad = antiguedad;
         this.manager = manager;
         this.mes_entrada = 1;
@@ -84,20 +84,20 @@ public class Empleado {
         this.curriculum = curriculum;
     }
     
-    public String getCi() {
-        return ci;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setCedula(String ci) {
+        this.cedula = ci;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setCelular(String cel) {
+        this.celular = cel;
     }
 
     public int getAntiguedad() {

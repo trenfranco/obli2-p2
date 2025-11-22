@@ -12,10 +12,10 @@ public class TestSistema {
 
         System.out.println("===== PRUEBA DE AREAS =====");
 
-        Area a1 = new Area("Marketing", 90000, "Publicidad, redes sociales");
-        Area a2 = new Area("RRHH", 80000, "Recursos humanos");
-        Area a3 = new Area("Seguridad", 120000, "Seguridad física y digital");
-        Area a4 = new Area("Marketing", 50000, "Duplicado para probar");
+        Area a1 = new Area("Marketing", "Publicidad, redes sociales", 90000);
+        Area a2 = new Area("RRHH", "Recursos humanos", 80000);
+        Area a3 = new Area("Seguridad", "Seguridad física y digital", 120000);
+        Area a4 = new Area("Marketing", "Duplicado para probar", 50000);
 
         // Agregar áreas
         System.out.println("Agregar Marketing: " + sistema.agregarArea(a1));  // true
@@ -73,9 +73,9 @@ public class TestSistema {
         
                 System.out.println("\n\n===== PRUEBA DE MANAGERS =====");
 
-        Manager m1 = new Manager("Ana", "111", 1234415 ,5);
-        Manager m2 = new Manager("Luis", "222", 4564711, 10);
-        Manager m3 = new Manager("Maria", "333", 45056561, 2);
+        Manager m1 = new Manager("Ana", "111", 5, "1234415");
+        Manager m2 = new Manager("Luis", "222", 10, "4564711");
+        Manager m3 = new Manager("Maria", "333", 2, "45056561");
 
         // Agregar managers
         System.out.println("Agregar Ana: " + sistema.agregarManager(m1)); // true

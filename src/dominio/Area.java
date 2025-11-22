@@ -16,11 +16,11 @@ public class Area implements Serializable {
     
     int id;
     String nombre;
-    int presupuesto_anual;
+    double presupuesto_anual;
     ArrayList<Empleado> integrantes = new ArrayList<>();
     String descripcion;
     
-    public Area(String nombre, int presupuesto_anual, String descripcion) {
+    public Area(String nombre, String descripcion, double presupuesto_anual) {
         this.id = contador_ids;
         contador_ids++;
         
@@ -37,11 +37,11 @@ public class Area implements Serializable {
         this.integrantes.remove(e);
     }
     
-    public void agregarPresupuesto(int monto) {
+    public void agregarPresupuesto(double monto) {
         this.presupuesto_anual += monto;
     }
     
-    public void restarPresupuesto(int monto) {
+    public void restarPresupuesto(double monto) {
         this.presupuesto_anual -= monto;
     }
     
@@ -61,7 +61,7 @@ public class Area implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getPresupuestoAnual() {
+    public double getPresupuestoAnual() {
         return presupuesto_anual;
     }
 
