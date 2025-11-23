@@ -29,8 +29,14 @@ public class Area implements Serializable {
         this.descripcion = descripcion;
     }
     
-    public void AgregarEmpleado(Empleado e) {
-        this.integrantes.add(e);
+    public double calcularPresupuestoAnual() {
+        //unused
+        double total = this.presupuesto_anual;
+        
+        for (Empleado e: this.integrantes) {
+            total -= e.getSalario() * 12;
+        }
+        return total;
     }
     
     public void EliminarEmpleado(Empleado e) {
@@ -46,6 +52,13 @@ public class Area implements Serializable {
     }
     
     public void agregarEmpleado(Empleado e) {
+        this.agregarEmpleado(e, false);
+    }
+    
+    public void agregarEmpleado(Empleado e, boolean esMovimiento) {
+        if (!esMovimiento)
+            this.presupuesto_anual -= e.getSalario() * 12;
+        
         this.integrantes.add(e);
     }
 

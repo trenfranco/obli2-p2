@@ -3,6 +3,8 @@ package tests;
 import dominio.Area;
 import dominio.Manager;
 import dominio.Empleado;
+import dominio.Movimiento;
+import dominio.Curriculum;
 import logica.Sistema;
 
 public class TestSistema {
@@ -12,9 +14,9 @@ public class TestSistema {
 
         System.out.println("===== PRUEBA DE AREAS =====");
 
-        Area a1 = new Area("Marketing", "Publicidad, redes sociales", 90000);
+        Area a1 = new Area("Marketing", "Publicidad, redes sociales", 10000);
         Area a2 = new Area("RRHH", "Recursos humanos", 80000);
-        Area a3 = new Area("Seguridad", "Seguridad física y digital", 120000);
+        Area a3 = new Area("Seguridad", "Seguridad física y digital", 2000);
         Area a4 = new Area("Marketing", "Duplicado para probar", 50000);
 
         // Agregar áreas
@@ -103,7 +105,54 @@ public class TestSistema {
         for (Manager m : sistema.getManagers()) {
             System.out.println(m.getNombre());
         }
+        
+        
+        System.out.println("\n===== TEST EMPLEADOS =====");
 
+        Empleado e1 = new Empleado("Ana", 110, a1, "Hola coom estas", "52424002", "9088282", 3, m1);
+        Empleado e2 = new Empleado("Luis", 105, a1, "Chhau cajajhcs", "59943", "99282", 1, m2);
+        Empleado e3 = new Empleado("Mati", 50, a3, "asdas asd asad s", "455242", "123456", 10, m3);
+        
+        System.out.println("Agregar Juan: " + sistema.agregarEmpleado(e1));
+        System.out.println("Agregar Euge: " + sistema.agregarEmpleado(e2));
+        System.out.println("Agregar Mati: " + sistema.agregarEmpleado(e3));
+
+        a1.agregarEmpleado(e1);
+        a1.agregarEmpleado(e2);
+        a3.agregarEmpleado(e3);
+
+        System.out.println("\nEmpleados cargados en el sistema:");
+        for (Empleado e : sistema.getEmpleados()) {
+            System.out.println(e.getNombre() + " - $" + e.getSalario());
+        }
+
+        System.out.println("\n===== EMPLEADOS ORDENADOS POR SALARIO =====");
+        for (Empleado e : sistema.getEmpleadosOrdenados()) {
+            System.out.println(e.getNombre() + " - $" + e.getSalario());
+        }
+        
+        System.out.println("\n===== TEST MOVIMIENTO =====");
+        
+        Movimiento mov1 = new Movimiento(9, a1, a3, e2);
+        System.out.println("Presupuesto de Marketing: " + a1.getPresupuestoAnual());
+        System.out.println("Presupuesto de Seguridad: " + a3.getPresupuestoAnual());
+        
+        sistema.ejecutarMovimiento(mov1);
+        
+        System.out.println("Presupuesto de Marketing luego del movimiento: " + a1.getPresupuestoAnual());
+        System.out.println("Presupuesto de Seguridad luego del movimiento: " + a3.getPresupuestoAnual());
+        
+        System.out.println("\n===== INTEGRANTES DESPUÉS DEL MOVIMIENTO =====");
+
+        System.out.println("\nIntegrantes de " + a1.getNombre() + ":");
+        for (Empleado emp : a1.getIntegrantes()) {
+            System.out.println(" - " + emp.getNombre());
+        }
+
+        System.out.println("\nIntegrantes de " + a3.getNombre() + ":");
+        for (Empleado emp : a3.getIntegrantes()) {
+            System.out.println(" - " + emp.getNombre());
+        }
         
         System.out.println("\n===== PRUEBAS COMPLETADAS =====");
     }

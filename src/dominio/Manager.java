@@ -1,8 +1,9 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Manager {
+public class Manager implements Serializable {
 
     private static int contador_ids = 1;
 
