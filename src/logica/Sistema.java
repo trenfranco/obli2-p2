@@ -21,6 +21,21 @@ public class Sistema implements Serializable {
         movimientos = new ArrayList<>();
     }
     
+    // Empleados
+    
+    public boolean agregarEmpleado(Empleado e) {
+       for (Empleado empleado: this.empleados) {
+           if (empleado.getNombre().equalsIgnoreCase(e.getNombre()))
+               return false;
+       }
+       this.empleados.add(e);
+       return true;
+    }
+    
+    public ArrayList<Empleado> getEmpleados() {
+            return this.empleados;
+    }
+    
     // Métodos de manejo de áreas
 
     public boolean agregarArea(Area area) {
@@ -60,7 +75,7 @@ public class Sistema implements Serializable {
     
     // implementar metodo que cree un nuevo arrayList con las areas guardadas ordenadas por nombre creciente
     public ArrayList<Area> getAreasOrdenadas() {
-        ArrayList<Area> copia = new ArrayList<Area>(areas);
+        ArrayList<Area> copia = new ArrayList<>(areas);
         int largo = copia.size();
         
         for (int j = 0; j < largo; j++) {
@@ -86,7 +101,7 @@ public class Sistema implements Serializable {
         ArrayList<Area> areasSinEmpleados = new ArrayList<>();
         
         for (Area a: this.areas) {
-            if (a.getIntegrantes().size() == 0)
+            if (a.getIntegrantes().isEmpty())
                 areasSinEmpleados.add(a);
         }
         return areasSinEmpleados;
@@ -111,12 +126,12 @@ public class Sistema implements Serializable {
     
     public boolean agregarManager(Manager manager) {
         for (Manager m: this.managers) {
-            if (m.getCedula() == manager.getCedula())
+            if (m.getCedula().equalsIgnoreCase(manager.getCedula()))
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCedula() == manager.getCedula())
+            if (e.getCedula().equalsIgnoreCase(manager.getCedula()))
                 return false;
         }
         
@@ -187,12 +202,12 @@ public class Sistema implements Serializable {
     
     public boolean agregarEmpleado(Empleado empleado, Manager manager, Area area) {
         for (Manager m: this.managers) {
-            if (m.getCedula() == empleado.getCedula())
+            if (m.getCedula().equalsIgnoreCase(empleado.getCedula()))
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCedula() == empleado.getCedula())
+            if (e.getCedula().equalsIgnoreCase(empleado.getCedula()))
                 return false;
         }
         
@@ -222,6 +237,15 @@ public class Sistema implements Serializable {
     
     // Logica para movimientos
     
+    public boolean agregarMovimiento(Movimiento m) {
+       this.movimientos.add(m);
+       return true;
+    }
+    
+    public ArrayList<Movimiento> getMovimientos() {
+            return this.movimientos;
+    }
+    
     public boolean ejecutarMovimiento(Movimiento movimiento) {
         Empleado empleado = movimiento.getEmpleado();
         
@@ -232,12 +256,13 @@ public class Sistema implements Serializable {
         Area area_destino = movimiento.getAreaDestino();
         
         if (presupuesto_area_destino >= presupuesto_necesario) {
-            area_origen.agregarPresupuesto(presupuesto_necesario);
-            area_destino.restarPresupuesto(presupuesto_necesario);
-            
             area_origen.EliminarEmpleado(empleado);
-            area_destino.AgregarEmpleado(empleado);
+            area_origen.agregarPresupuesto(presupuesto_necesario);
             
+            
+            area_destino.agregarEmpleado(empleado, true);
+            area_destino.restarPresupuesto(presupuesto_necesario);
+        
             empleado.setArea(area_destino);
             
             return true;

@@ -157,8 +157,28 @@ public class VentanaInicio extends JFrame {
         dispose();
     }
 
-    // Datos precargados (ficticios)
+    // Datos precargados
     private void cargarDatosFicticios(Sistema sistema) {
-        // Desarrollar
+        Area a1 = new Area("Personal", "Reclutamiento de personal, promociones, gestión de cargos", 100000);
+        Area a2 = new Area("RRHH", "Relacionamiento en la empresa, organigrama, gestión de equipos", 80000);
+        Area a3 = new Area("Seguridad", "Seguridad física, vigilancia, seguridad informática, protocolos y políticas de seguridad", 120000);
+        Area a4 = new Area("Comunicaciones", "Comunicaciones internas, reglas y protocolos, comunicaciones con proveedores y clientes", 20000);
+        Area a5 = new Area("Marketing", "Acciones planificadas, publicidad en medios masivos, publicidad en redes, gestión de redes", 95000);
+
+        sistema.agregarArea(a1);
+        sistema.agregarArea(a2);
+        sistema.agregarArea(a3);
+        sistema.agregarArea(a4);
+        sistema.agregarArea(a5);
+
+        Manager m1 = new Manager("Ana Martínez", "4.568.369-1", 10, "099 123456");
+        Manager m2 = new Manager("Ricardo Morales", "3.214.589-3", 4, "094 121212");
+        Manager m3 = new Manager("Laura Torales", "3.589.257-5", 1, "099 654321");
+        Manager m4 = new Manager("Juan Pablo Zapata", "4.555.197-7", 5, "099 202020");
+
+        sistema.agregarManager(m1);
+        sistema.agregarManager(m2);
+        sistema.agregarManager(m3);
+        sistema.agregarManager(m4);
     }
 }

@@ -5,6 +5,7 @@ import interfaz.areas.VentanaAreasBaja;
 import interfaz.areas.VentanaAreasModificar;
 import interfaz.managers.VentanaManagersAlta;
 import logica.Sistema;
+import logica.Persistencia;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -48,8 +49,39 @@ public class VentanaMenuPrincipal extends JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Persistencia.guardarSistema(sistema);
+                System.exit(0);
+            }
+        });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_F1) {
+                    mostrarInfoAutores();
+                }
+            }
+        });
+        setFocusable(true);
+    }
+
+    private void mostrarInfoAutores() {
+        JOptionPane.showMessageDialog(
+            this,
+            "Autores:\n\n" +
+            "Matías Martínez - 282558\n" +
+            "Franco Trenche - 368637\n\n" +
+            "Segundo Obligatorio Programación 2\n" +
+            "ERP - MARTRE",
+            "Información de Autores",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
     
     // Crear y configurar elementos dentro de la ventana
