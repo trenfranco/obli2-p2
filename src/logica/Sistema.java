@@ -21,6 +21,51 @@ public class Sistema implements Serializable {
         movimientos = new ArrayList<>();
     }
     
+    public void cargarDatosPrecargados() {
+        // Áreas
+        Area a1 = new Area(
+                "Personal",
+                "Reclutamiento de personal, promociones, gestión de cargos",
+                100000
+        );
+        Area a2 = new Area(
+                "RRHH",
+                "Relacionamiento en la empresa, organigrama, gestión de equipos",
+                80000
+        );
+        Area a3 = new Area(
+                "Seguridad",
+                "Seguridad física, vigilancia, seguridad informática, protocolos y políticas de seguridad",
+                120000
+        );
+        Area a4 = new Area(
+                "Comunicaciones",
+                "Comunicaciones internas, reglas y protocolos, comunicaciones con proveedores y clientes",
+                20000
+        );
+        Area a5 = new Area(
+                "Marketing",
+                "Acciones planificadas, publicidad en medios masivos, publicidad en redes, gestión de redes",
+                95000
+        );
+
+        agregarArea(a1);
+        agregarArea(a2);
+        agregarArea(a3);
+        agregarArea(a4);
+        agregarArea(a5);
+
+        // Managers
+        Manager m1 = new Manager("Ana Martínez", "4.568.369-1", 10, "099 123456");
+        Manager m2 = new Manager("Ricardo Morales", "3.214.589-3", 4, "094 121212");
+        Manager m3 = new Manager("Laura Torales", "3.589.257-5", 1, "099 654321");
+        Manager m4 = new Manager("Juan Pablo Zapata", "4.555.197-7", 5, "099 202020");
+
+        agregarManager(m1);
+        agregarManager(m2);
+        agregarManager(m3);
+        agregarManager(m4);
+    }
     // Métodos de manejo de áreas
 
     public boolean agregarArea(Area area) {
@@ -60,7 +105,7 @@ public class Sistema implements Serializable {
     
     // implementar metodo que cree un nuevo arrayList con las areas guardadas ordenadas por nombre creciente
     public ArrayList<Area> getAreasOrdenadas() {
-        ArrayList<Area> copia = new ArrayList<Area>(areas);
+        ArrayList<Area> copia = new ArrayList<>(areas);
         int largo = copia.size();
         
         for (int j = 0; j < largo; j++) {
@@ -86,7 +131,7 @@ public class Sistema implements Serializable {
         ArrayList<Area> areasSinEmpleados = new ArrayList<>();
         
         for (Area a: this.areas) {
-            if (a.getIntegrantes().size() == 0)
+            if (a.getIntegrantes().isEmpty())
                 areasSinEmpleados.add(a);
         }
         return areasSinEmpleados;
@@ -111,12 +156,12 @@ public class Sistema implements Serializable {
     
     public boolean agregarManager(Manager manager) {
         for (Manager m: this.managers) {
-            if (m.getCedula() == manager.getCedula())
+            if (m.getCedula().equalsIgnoreCase(manager.getCedula()))
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCedula() == manager.getCedula())
+            if (e.getCedula().equalsIgnoreCase(manager.getCedula()))
                 return false;
         }
         
@@ -124,20 +169,18 @@ public class Sistema implements Serializable {
         return true;
     }
     
-    public ArrayList<Manager> getManagersOrdenados() {
+    public ArrayList<Manager> getManagersOrdenadosAntiguedadDecreciente() {
         ArrayList<Manager> copia = new ArrayList<Manager>(this.managers);
         
         int largo = copia.size();
-        int antiguedad1, antiguedad2;
-        Manager aux;
         
         for (int i=0; i < largo; i++) {
             for (int j=0; j < largo -1; j++){
-                antiguedad1 = copia.get(j).getAntiguedad();
-                antiguedad2 = copia.get(j+1).getAntiguedad();
+                int antiguedad1 = copia.get(j).getAntiguedad();
+                int antiguedad2 = copia.get(j+1).getAntiguedad();
                 
-                if (antiguedad1 > antiguedad2) {
-                    aux = copia.get(j);
+                if (antiguedad1 < antiguedad2) {
+                    Manager aux = copia.get(j);
                     copia.set(j, copia.get(j+1));
                     copia.set(j+1, aux);
                 }
@@ -185,24 +228,48 @@ public class Sistema implements Serializable {
     
     // Manejo Empleados
     
-    public boolean agregarEmpleado(Empleado empleado, Manager manager, Area area) {
+    public boolean agregarEmpleado(Empleado empleado) {
+        // constructor anterior
+        // agregarEmpleado(Empleado empleado, Manager manager, Area area)
         for (Manager m: this.managers) {
-            if (m.getCedula() == empleado.getCedula())
+            if (m.getCedula().equalsIgnoreCase(empleado.getCedula()))
                 return false;
         }
         
         for (Empleado e: this.empleados) {
-            if (e.getCedula() == empleado.getCedula())
+            if (e.getCedula().equalsIgnoreCase(empleado.getCedula()))
                 return false;
         }
         
+        double costoAnualEmp = empleado.getSalario() * 12;
+        // Validacion del presupuesto del area para cubrir el salario mensual
+        Area a = empleado.getArea();
+        if (a.getPresupuestoAnual() < costoAnualEmp) {
+            return false;
+        }
+        
+        a.restarPresupuesto(costoAnualEmp);
+        a.agregarEmpleado(empleado);
+        empleado.getManager().agregarEmpleado(empleado);
         this.empleados.add(empleado);
-        manager.agregarEmpleado(empleado);
-        area.agregarEmpleado(empleado);
+        
         return true;
     }
     
-    public ArrayList<Empleado> getEmpleadosOrdenados() {
+    public ArrayList<Empleado> getEmpleados() {
+            return this.empleados;
+    }
+    
+    public Empleado getEmpleadoPorCedula(String cedula) {
+        for (Empleado e : empleados) {
+            if (e.getCedula().equalsIgnoreCase(cedula)) {
+                return e;
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Empleado> getEmpleadosOrdenadosSalarioCreciente() {
         ArrayList<Empleado> copia = new ArrayList<>(this.empleados);
         int n = copia.size();
 
@@ -222,22 +289,31 @@ public class Sistema implements Serializable {
     
     // Logica para movimientos
     
+    public boolean agregarMovimiento(Movimiento m) {
+       this.movimientos.add(m);
+       return true;
+    }
+    
+    public ArrayList<Movimiento> getMovimientos() {
+            return this.movimientos;
+    }
+    
     public boolean ejecutarMovimiento(Movimiento movimiento) {
         Empleado empleado = movimiento.getEmpleado();
-        
-        int presupuesto_necesario = Movimiento.CalcularPresupuestoNecesario(empleado.getSalario(), movimiento.getMes());
-        double presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
-        
         Area area_origen = empleado.getArea();
         Area area_destino = movimiento.getAreaDestino();
+        int mes = movimiento.getMes();
+        
+        double presupuesto_necesario = Movimiento.CalcularPresupuestoNecesario(empleado.getSalario(), mes);
+        double presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
         
         if (presupuesto_area_destino >= presupuesto_necesario) {
-            area_origen.agregarPresupuesto(presupuesto_necesario);
-            area_destino.restarPresupuesto(presupuesto_necesario);
-            
             area_origen.EliminarEmpleado(empleado);
-            area_destino.AgregarEmpleado(empleado);
-            
+            area_origen.agregarPresupuesto(presupuesto_necesario);
+
+            area_destino.restarPresupuesto(presupuesto_necesario);
+            area_destino.agregarEmpleado(empleado);
+        
             empleado.setArea(area_destino);
             
             return true;

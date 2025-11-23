@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 import java.io.Serializable;
 
@@ -23,7 +19,7 @@ public class Movimiento implements Serializable{
         this.empleado = empleado;
     }
     
-    public static int CalcularPresupuestoNecesario(int sueldo_empleado, int mes) {
+    public static double CalcularPresupuestoNecesario(double sueldo_empleado, int mes) {
         return sueldo_empleado * (12 - mes + 1);
     }
 

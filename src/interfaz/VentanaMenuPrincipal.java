@@ -3,7 +3,11 @@ package interfaz;
 import interfaz.areas.VentanaAreasAlta;
 import interfaz.areas.VentanaAreasBaja;
 import interfaz.areas.VentanaAreasModificar;
+import interfaz.areas.VentanaAreasMovimiento;
 import interfaz.managers.VentanaManagersAlta;
+import interfaz.managers.VentanaManagersBaja;
+import interfaz.managers.VentanaManagersModificar;
+import interfaz.empleados.VentanaEmpleadosAlta;
 import logica.Sistema;
 import javax.swing.*;
 import java.awt.event.*;
@@ -83,6 +87,12 @@ public class VentanaMenuPrincipal extends JFrame {
                 new VentanaAreasModificar(sistema).setVisible(true);
             }
         });
+        itemMovArea.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaAreasMovimiento(sistema).setVisible(true);
+            }
+        });
         
         menuAreas.add(itemAltaArea);
         menuAreas.add(itemBajaArea);
@@ -103,6 +113,18 @@ public class VentanaMenuPrincipal extends JFrame {
                 new VentanaManagersAlta(sistema).setVisible(true);
             }
         });
+        itemBajaManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaManagersBaja(sistema).setVisible(true);
+            }
+        });
+        itemModManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaManagersModificar(sistema).setVisible(true);
+            }
+        });
         
         menuManagers.add(itemAltaManager);
         menuManagers.add(itemBajaManager);
@@ -112,6 +134,13 @@ public class VentanaMenuPrincipal extends JFrame {
         JMenu menuEmpleados = new JMenu("Empleados");
         
         JMenuItem itemAltaEmpleado = new JMenuItem("Alta");
+        
+        itemAltaEmpleado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaEmpleadosAlta(sistema).setVisible(true);
+            }
+        });
         
         menuEmpleados.add(itemAltaEmpleado);
         

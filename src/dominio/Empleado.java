@@ -1,42 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
+
+import utilidades.ArchivosCV;
+import java.io.Serializable;
 
 /**
  *
  * @author Usuario
  */
-public class Empleado {
+public class Empleado implements Serializable {
     private static int contador_ids = 1;
     
     private int id;
     private String nombre;
-    private int salario;
-    private Area area;
-    private Manager manager;
-    private Curriculum curriculum;
     private String cedula;
     private String celular;
-    private int antiguedad;
+    private String texto_curriculum;
+    private double salario;
+    private Manager manager;
+    private Area area;
     private int mes_entrada;
     
     
-    Empleado(String nombre, int salario, Area area, Curriculum curriculum, String ci, String cel, int antiguedad, Manager manager) {
+    public Empleado(String nombre, String ci, String cel, String texto_curriculum, double salario, Manager manager, Area area) {
         this.id = contador_ids;
         contador_ids++;
-        
+
         this.nombre = nombre;
-        this.area = area;
-        this.curriculum = curriculum;
-        this.salario = salario;
         this.cedula = ci;
         this.celular = cel;
-        this.antiguedad = antiguedad;
+        this.texto_curriculum = texto_curriculum;
+        this.salario = salario;
         this.manager = manager;
+        this.area = area;
         this.mes_entrada = 1;
-        
+
+        if (texto_curriculum != null && !texto_curriculum.isEmpty()) {
+            ArchivosCV.guardarCV(ci, texto_curriculum);
+        }
     }
     
     public int getMesEntrada() {
@@ -55,7 +55,7 @@ public class Empleado {
         return nombre;
     }
 
-    public int getSalario() {
+    public double getSalario() {
         return salario;
     }
 
@@ -63,8 +63,8 @@ public class Empleado {
         return area;
     }
 
-    public Curriculum getCurriculum() {
-        return curriculum;
+    public String getTextoCurriculum() {
+        return texto_curriculum;
     }
 
     // -------- Setters --------
@@ -72,7 +72,7 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public void setSalario(int salario) {
+    public void setSalario(double salario) {
         this.salario = salario;
     }
 
@@ -80,8 +80,8 @@ public class Empleado {
         this.area = area;
     }
 
-    public void setCurriculum(Curriculum curriculum) {
-        this.curriculum = curriculum;
+    public void setTextoCurriculum(String txt) {
+        this.texto_curriculum = txt;
     }
     
     public String getCedula() {
@@ -100,14 +100,6 @@ public class Empleado {
         this.celular = cel;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
-    }
-
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
-    }
-    
     public Manager getManager(){
         return manager;
     }

@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class VentanaInicio extends JFrame {
-
     private JLabel labelLogo;
     private JLabel labelMatias;
     private JLabel labelFranco;
@@ -33,7 +32,6 @@ public class VentanaInicio extends JFrame {
 
     // Crear y configurar elementos de la ventana
     private void inicializarComponentes() {
-
         labelLogo = new JLabel();
         labelMatias = new JLabel("Matías Martínez - 282558");
         labelFranco = new JLabel("Franco Trenche - 368637");
@@ -105,7 +103,6 @@ public class VentanaInicio extends JFrame {
 
     // Menu de selección de inicio
     private void mostrarOpcionesInicio() {
-
         String[] opciones = {
             "Sistema nuevo",
             "Sistema guardado",
@@ -146,7 +143,7 @@ public class VentanaInicio extends JFrame {
 
             case 2:  // datos ficticios
                 sistema = new Sistema();
-                cargarDatosFicticios(sistema);
+                sistema.cargarDatosPrecargados();
                 break;
 
             default:
@@ -155,10 +152,5 @@ public class VentanaInicio extends JFrame {
 
         new VentanaMenuPrincipal(sistema).setVisible(true);
         dispose();
-    }
-
-    // Datos precargados (ficticios)
-    private void cargarDatosFicticios(Sistema sistema) {
-        // Desarrollar
     }
 }

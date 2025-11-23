@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *
+ * Falta agregar verificacion que el input en el campo celular no sea otra cosa que numeros
  * @author matim
  */
 public class VentanaManagersModificar extends JFrame {
@@ -39,7 +39,7 @@ public class VentanaManagersModificar extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Modificar manager");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -50,13 +50,12 @@ public class VentanaManagersModificar extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaManagers = new JList<>(modeloLista);
         listaManagers.setBorder(BorderFactory.createTitledBorder("Managers existentes"));
-        listaManagers.setFont(new Font("", Font.BOLD, 16));
+        listaManagers.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaManagers);
         
         // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
-        labelTitulo = new JLabel("MODIFICAR MANAGER");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("MODIFICAR MANAGER", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         labelNombre.setForeground(Color.GRAY);
@@ -167,7 +166,7 @@ public class VentanaManagersModificar extends JFrame {
             labelNombre.setText("<html>" + managerSeleccionado.getNombre() + "</html>");
             labelCedula.setText("<html>" + managerSeleccionado.getCedula() + "</html>");
             labelAntiguedad.setText("<html>" + String.valueOf(managerSeleccionado.getAntiguedad()) + "</html>");
-            textoCelular.setText("<html>" + managerSeleccionado.getCelular() + "</html>");
+            textoCelular.setText(managerSeleccionado.getCelular());
         }
     }
 }

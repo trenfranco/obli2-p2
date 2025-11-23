@@ -38,7 +38,7 @@ public class VentanaAreasModificar extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Modificar área");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -49,13 +49,12 @@ public class VentanaAreasModificar extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaAreas = new JList<>(modeloLista);
         listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas existentes"));
-        listaAreas.setFont(new Font("", Font.BOLD, 16));
+        listaAreas.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaAreas);
         
         // Parte derecha (mostrar informacion del area seleccionada y permitir modificar la descripcion)
-        labelTitulo = new JLabel("MODIFICAR ÁREA");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("MODIFICAR ÁREA", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         labelNombre.setForeground(Color.GRAY);
@@ -168,7 +167,7 @@ public class VentanaAreasModificar extends JFrame {
         if (areaSeleccionada != null) {
             labelNombre.setText("<html>" + areaSeleccionada.getNombre() + "</html>");
             labelPresupuesto.setText("<html>" + String.valueOf(areaSeleccionada.getPresupuestoAnual()) + "</html>");
-            textoDescripcion.setText("<html>" + areaSeleccionada.getDescripcion() + "</html>");
+            textoDescripcion.setText(areaSeleccionada.getDescripcion());
         }
     }
 }
