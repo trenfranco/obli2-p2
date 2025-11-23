@@ -9,6 +9,7 @@ import interfaz.managers.VentanaManagersBaja;
 import interfaz.managers.VentanaManagersModificar;
 import interfaz.empleados.VentanaEmpleadosAlta;
 import logica.Sistema;
+import logica.Persistencia;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -52,7 +53,16 @@ public class VentanaMenuPrincipal extends JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
         setSize(1280, 720);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Persistencia.guardarSistema(sistema);
+                dispose();
+                System.exit(0);
+            }
+        });
         setResizable(false);
     }
     

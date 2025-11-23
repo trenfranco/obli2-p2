@@ -106,7 +106,7 @@ public class VentanaInicio extends JFrame {
         String[] opciones = {
             "Sistema nuevo",
             "Sistema guardado",
-            "Sistema con datos precargados"
+            "Datos precargados"
         };
 
         int seleccion = JOptionPane.showOptionDialog(
