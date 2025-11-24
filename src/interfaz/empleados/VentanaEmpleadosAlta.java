@@ -191,8 +191,9 @@ public class VentanaEmpleadosAlta extends JFrame {
         Manager m = (Manager) comboManagers.getSelectedItem();
         Area a = (Area) comboAreas.getSelectedItem();
 
-        Empleado nuevo = new Empleado(nombre, cedula, celular, curriculum, salario, m, a);
-
+        Empleado nuevo = new Empleado(nombre, salario, a, curriculum, cedula, celular, 1, m);
+        //agregar antiguedad
+        
         boolean agregado = sistema.agregarEmpleado(nuevo);
         if (!agregado) {
             JOptionPane.showMessageDialog(this,

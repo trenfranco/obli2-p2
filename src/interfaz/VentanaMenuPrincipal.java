@@ -8,6 +8,7 @@ import interfaz.managers.VentanaManagersAlta;
 import interfaz.managers.VentanaManagersBaja;
 import interfaz.managers.VentanaManagersModificar;
 import interfaz.empleados.VentanaEmpleadosAlta;
+import interfaz.reportes.ReporteInteligente;
 import logica.Sistema;
 import logica.Persistencia;
 import javax.swing.*;
@@ -188,11 +189,18 @@ public class VentanaMenuPrincipal extends JFrame {
         
         // Menú Reportes
         JMenu menuReportes = new JMenu("Reportes");
-        
+
         JMenuItem itemRepInt = new JMenuItem("Reporte inteligente");
         JMenuItem itemRepEst = new JMenuItem("Reporte de estado de área");
         JMenuItem itemRepMov = new JMenuItem("Reporte de movimientos");
-        
+
+        itemRepInt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ReporteInteligente(sistema).setVisible(true);
+            }
+        });
+
         menuReportes.add(itemRepInt);
         menuReportes.add(itemRepEst);
         menuReportes.add(itemRepMov);

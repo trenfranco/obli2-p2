@@ -22,16 +22,6 @@ public class Sistema implements Serializable {
     }
     
     // Empleados
-    
-    public boolean agregarEmpleado(Empleado e) {
-       for (Empleado empleado: this.empleados) {
-           if (empleado.getNombre().equalsIgnoreCase(e.getNombre()))
-               return false;
-       }
-       this.empleados.add(e);
-       return true;
-    }
-    
     public ArrayList<Empleado> getEmpleados() {
             return this.empleados;
     }
@@ -51,7 +41,7 @@ public class Sistema implements Serializable {
         Area a3 = new Area(
                 "Seguridad",
                 "Seguridad física, vigilancia, seguridad informática, protocolos y políticas de seguridad",
-                120000
+                25000
         );
         Area a4 = new Area(
                 "Comunicaciones",
@@ -61,7 +51,7 @@ public class Sistema implements Serializable {
         Area a5 = new Area(
                 "Marketing",
                 "Acciones planificadas, publicidad en medios masivos, publicidad en redes, gestión de redes",
-                95000
+                10000
         );
 
         agregarArea(a1);
@@ -142,7 +132,6 @@ public class Sistema implements Serializable {
         return copia;
     }
     
-    // Implementar metodo que cree un nuevo arrayList que contenga las areas sin Empleados para poder ser eliminadas
     public ArrayList<Area> getAreasSinEmpleados() {
         ArrayList<Area> areasSinEmpleados = new ArrayList<>();
         
@@ -258,13 +247,12 @@ public class Sistema implements Serializable {
         }
         
         double costoAnualEmp = empleado.getSalario() * 12;
-        // Validacion del presupuesto del area para cubrir el salario mensual
+        
         Area a = empleado.getArea();
         if (a.getPresupuestoAnual() < costoAnualEmp) {
             return false;
         }
         
-        a.restarPresupuesto(costoAnualEmp);
         a.agregarEmpleado(empleado);
         empleado.getManager().agregarEmpleado(empleado);
         this.empleados.add(empleado);
@@ -272,9 +260,6 @@ public class Sistema implements Serializable {
         return true;
     }
     
-    public ArrayList<Empleado> getEmpleados() {
-            return this.empleados;
-    }
     
     public Empleado getEmpleadoPorCedula(String cedula) {
         for (Empleado e : empleados) {
@@ -319,21 +304,36 @@ public class Sistema implements Serializable {
         Area area_origen = empleado.getArea();
         Area area_destino = movimiento.getAreaDestino();
         int mes = movimiento.getMes();
-        
+
         double presupuesto_necesario = Movimiento.CalcularPresupuestoNecesario(empleado.getSalario(), mes);
         double presupuesto_area_destino = movimiento.getAreaDestino().getPresupuestoAnual();
-        
+
         if (presupuesto_area_destino >= presupuesto_necesario) {
             area_origen.EliminarEmpleado(empleado);
             area_origen.agregarPresupuesto(presupuesto_necesario);
-            
+
             area_destino.agregarEmpleado(empleado, true);
             area_destino.restarPresupuesto(presupuesto_necesario);
 
             empleado.setArea(area_destino);
-            
+
             return true;
         }
         return false;
+    }
+
+    // Manejo Reportes Inteligentes
+
+    /**
+     * Genera un reporte inteligente sobre el movimiento de un empleado
+     * @param areaOrigen Area de origen del empleado
+     * @param areaDestino Area destino propuesta
+     * @param empleado Empleado a analizar
+     * @return Reporte con análisis de ventajas y desventajas
+     */
+    public Reporte generarReporteInteligente(Area areaOrigen, Area areaDestino, Empleado empleado) {
+        Reporte reporte = new Reporte(areaOrigen, areaDestino, empleado);
+        reporte.generarReporteConLLM();
+        return reporte;
     }
 }
