@@ -105,4 +105,10 @@ public class Empleado implements Serializable {
     public void setManager(Manager m) {
         this.manager = m;
     }
+    
+    // toString para mostrar info en tabla de reporte.
+    @Override
+    public String toString() {
+        return nombre + " (" + cedula + ")";
+    }
 }

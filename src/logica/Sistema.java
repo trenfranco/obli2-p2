@@ -1,8 +1,11 @@
 package logica;
 
 import dominio.*;
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  *
@@ -260,7 +263,6 @@ public class Sistema implements Serializable {
         return true;
     }
     
-    
     public Empleado getEmpleadoPorCedula(String cedula) {
         for (Empleado e : empleados) {
             if (e.getCedula().equalsIgnoreCase(cedula)) {
@@ -268,6 +270,19 @@ public class Sistema implements Serializable {
             }
         }
         return null;
+    }
+    
+    public Empleado getEmpleadoPorNombre(String nombre) {
+        if (nombre == null) {
+            return null;
+        }
+
+        for (Empleado e : empleados) {
+            if (e.getNombre().equalsIgnoreCase(nombre.trim())) {
+                return e;
+            }
+        }
+        return null; // no encontrado
     }
     
     public ArrayList<Empleado> getEmpleadosOrdenadosSalarioCreciente() {
@@ -322,11 +337,139 @@ public class Sistema implements Serializable {
         return false;
     }
 
-    //Manejo Reportes Inteligentes
+    //Manejo Reportes
     //Reporte con analisis de ventajas y desventajas
     public Reporte generarReporteInteligente(Area areaOrigen, Area areaDestino, Empleado empleado) {
         Reporte reporte = new Reporte(areaOrigen, areaDestino, empleado);
         reporte.generarReporteConLLM();
         return reporte;
+    }
+    
+    // Reporte de estado de Area:    
+    public ArrayList<Area> getAreasOrdenadasPorPorcentajeAsignado() {
+        ArrayList<Area> copia = new ArrayList<>(areas);
+        copia.sort((a1, a2) -> Double.compare(calcularPorcentajeArea(a2), calcularPorcentajeArea(a1)));
+        return copia;
+    }
+    
+    // Calcular el porcentaje de presupuesto gastado de un area
+    public double calcularPorcentajeArea(Area area) {
+        double gastado = 0;
+
+        for (Empleado e : area.getIntegrantes()) {
+            gastado += e.getSalario() * 12;
+        }
+
+        double total = area.getPresupuestoAnual() + gastado;
+        if (total == 0) {
+            return 0;
+        }
+
+        return (gastado / total) * 100.0;
+    }
+    
+    // Color de un area segun el porcentaje de presupuesto gastado.
+    public Color getColorParaArea(Area area) {
+        double p = calcularPorcentajeArea(area);
+        if (p > 90) {
+            return Color.RED;
+        }
+        if (p >= 70) {
+            return Color.YELLOW;
+        }
+        return Color.LIGHT_GRAY;
+    }
+    
+    // Obtener empleados por nombre
+    public ArrayList<Empleado> getEmpleadosOrdenados(Area area) {
+        ArrayList<Empleado> lista = new ArrayList<>(area.getIntegrantes());
+        // Selection sort
+        for (int i = 0; i < lista.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < lista.size(); j++) {
+                Empleado e1 = lista.get(j);
+                Empleado e2 = lista.get(minIndex);
+
+                // Comparación de letras 
+                if (e1.getNombre().compareToIgnoreCase(e2.getNombre()) < 0) {
+                    minIndex = j;
+                }
+            }
+
+            // Intercambiar posiciones
+            if (minIndex != i) {
+                Empleado temp = lista.get(i);
+                lista.set(i, lista.get(minIndex));
+                lista.set(minIndex, temp);
+            }
+        }
+        return lista;
+    }
+    
+    // Color del Empleado segun su salario
+    public Color getColorParaEmpleado(Empleado emp, Area area) {
+
+        ArrayList<Empleado> empleados = new ArrayList<>(area.getIntegrantes());
+
+        double min = empleados.stream().mapToDouble(Empleado::getSalario).min().orElse(0);
+        double max = empleados.stream().mapToDouble(Empleado::getSalario).max().orElse(0);
+
+        double factor = (emp.getSalario() - min) / (max - min + 0.0001);
+
+        int azul = (int) (factor * 255);
+        return new Color(0, 0, azul);
+    }
+    
+    // Reporte de Movimientos:
+    // Obtener movimientos ordenados por mes ascendente
+    public ArrayList<Movimiento> getMovimientosOrdenados() {
+        ArrayList<Movimiento> copia = new ArrayList<>(movimientos);
+
+        int n = copia.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1; j++) {
+                if (copia.get(j).getMes() > copia.get(j + 1).getMes()) {
+                    Movimiento aux = copia.get(j);
+                    copia.set(j, copia.get(j + 1));
+                    copia.set(j + 1, aux);
+                }
+            }
+        }
+        return copia;
+    }
+    
+    // Filtro por criterios
+    public ArrayList<Movimiento> filtrarMovimientos(Integer mes, Area origen, Area destino, Empleado empleado) {
+        ArrayList<Movimiento> filtrados = new ArrayList<>();
+
+        for (Movimiento m : movimientos) {
+            boolean okMes = (mes == null || m.getMes() == mes);
+            boolean okOrigen = (origen == null || m.getAreaOrigen().equals(origen));
+            boolean okDestino = (destino == null || m.getAreaDestino().equals(destino));
+            boolean okEmpleado = (empleado == null || m.getEmpleado().equals(empleado));
+
+            if (okMes && okOrigen && okDestino && okEmpleado) {
+                filtrados.add(m);
+            }
+        }
+        return filtrados;
+    }
+    
+    // Exportar a CSV
+    public void exportarMovimientosCSV(ArrayList<Movimiento> movs, File archivo) throws Exception {
+
+        FileWriter fw = new FileWriter(archivo);
+
+        fw.write("Mes,Area Origen,Area Destino,Empleado\n");
+
+        for (Movimiento m : movs) {
+            fw.write(
+                    m.getMes() + ","
+                    + m.getAreaOrigen().getNombre() + ","
+                    + m.getAreaDestino().getNombre() + ","
+                    + m.getEmpleado().getNombre() + "\n"
+            );
+        }
+        fw.close();
     }
 }
