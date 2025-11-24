@@ -119,7 +119,7 @@ public class VentanaAreasModificar extends JFrame {
     private void actualizarListaAreas() {
         modeloLista.clear();
         
-        ArrayList<Area> lista = sistema.getAreasSinEmpleados();
+        ArrayList<Area> lista = sistema.getAreas();
         for (Area a : lista) {
             modeloLista.addElement(a.getNombre());
         }

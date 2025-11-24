@@ -48,6 +48,13 @@ public class Area implements Serializable {
     }
     
     public void agregarEmpleado(Empleado e) {
+        this.agregarEmpleado(e, false);
+    }
+    
+    public void agregarEmpleado(Empleado e, boolean esMovimiento) {
+        if (!esMovimiento)
+            this.presupuesto_anual -= e.getSalario() * 12;
+        
         this.integrantes.add(e);
     }
 

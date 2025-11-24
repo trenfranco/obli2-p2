@@ -8,6 +8,7 @@ import interfaz.managers.VentanaManagersAlta;
 import interfaz.managers.VentanaManagersBaja;
 import interfaz.managers.VentanaManagersModificar;
 import interfaz.empleados.VentanaEmpleadosAlta;
+import interfaz.reportes.ReporteInteligente;
 import logica.Sistema;
 import logica.Persistencia;
 import javax.swing.*;
@@ -63,7 +64,39 @@ public class VentanaMenuPrincipal extends JFrame {
                 System.exit(0);
             }
         });
+
         setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Persistencia.guardarSistema(sistema);
+                System.exit(0);
+            }
+        });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_F1) {
+                    mostrarInfoAutores();
+                }
+            }
+        });
+        setFocusable(true);
+    }
+
+    private void mostrarInfoAutores() {
+        JOptionPane.showMessageDialog(
+            this,
+            "Autores:\n\n" +
+            "Matías Martínez - 282558\n" +
+            "Franco Trenche - 368637\n\n" +
+            "Segundo Obligatorio Programación 2\n" +
+            "ERP - MARTRE",
+            "Información de Autores",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
     
     // Crear y configurar elementos dentro de la ventana
@@ -156,11 +189,18 @@ public class VentanaMenuPrincipal extends JFrame {
         
         // Menú Reportes
         JMenu menuReportes = new JMenu("Reportes");
-        
+
         JMenuItem itemRepInt = new JMenuItem("Reporte inteligente");
         JMenuItem itemRepEst = new JMenuItem("Reporte de estado de área");
         JMenuItem itemRepMov = new JMenuItem("Reporte de movimientos");
-        
+
+        itemRepInt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ReporteInteligente(sistema).setVisible(true);
+            }
+        });
+
         menuReportes.add(itemRepInt);
         menuReportes.add(itemRepEst);
         menuReportes.add(itemRepMov);
