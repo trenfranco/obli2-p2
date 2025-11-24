@@ -9,6 +9,9 @@ import interfaz.managers.VentanaManagersBaja;
 import interfaz.managers.VentanaManagersModificar;
 import interfaz.empleados.VentanaEmpleadosAlta;
 import interfaz.reportes.ReporteInteligente;
+import interfaz.reportes.VentanaReporteAreas;
+import interfaz.reportes.VentanaReporteMovimientos;
+
 import logica.Sistema;
 import logica.Persistencia;
 import javax.swing.*;
@@ -198,6 +201,18 @@ public class VentanaMenuPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ReporteInteligente(sistema).setVisible(true);
+            }
+        });
+        itemRepEst.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaReporteAreas(sistema).setVisible(true);
+            }
+        });
+        itemRepMov.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaReporteMovimientos(sistema).setVisible(true);
             }
         });
 

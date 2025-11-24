@@ -2,10 +2,18 @@ package dominio;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-
 /**
+ * Clase Area
+ * Representa un área dentro de la organización, con un presupuesto anual,
+ * descripción, identificador automático y una lista de empleados asociados.
+ * Permite agregar o quitar empleados, ajustar el presupuesto y obtener
+ * información relevante para reportes.
  *
- * @author Usuario
+ * @author Matias Martinez 282558 - Franco Trenche 368637
+ *
+ * @param nombre Nombre del área.
+ * @param descripcion Descripción general del área.
+ * @param presupuesto_anual Presupuesto anual asignado al área.
  */
 public class Area implements Serializable {
     private static int contador_ids = 1;
