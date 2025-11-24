@@ -85,7 +85,7 @@ public class TestSistema {
         System.out.println("Agregar Maria: " + sistema.agregarManager(m3)); // true
 
         System.out.println("\n===== MANAGERS ORDENADOS POR ANTIGÜEDAD =====");
-        for (Manager m : sistema.getManagersOrdenados()) {
+        for (Manager m : sistema.getManagersOrdenadosAntiguedadDecreciente()) {
             System.out.println(m.getNombre() + " - Antiguedad: " + m.getAntiguedad());
         }
 

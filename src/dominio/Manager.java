@@ -60,8 +60,8 @@ public class Manager implements Serializable {
         this.cedula = ci;
     }
 
-    public void setCelular(String telefono) {
-        this.celular = celular;
+    public void setCelular(String cel) {
+        this.celular = cel;
     }
 
     public void setAntiguedad(int antiguedad) {
@@ -70,5 +70,10 @@ public class Manager implements Serializable {
 
     public void setEmpleadosACargo(ArrayList<Empleado> empleadosACargo) {
         this.empleadosACargo = empleadosACargo;
+    }
+    
+    @Override
+    public String toString() {
+        return nombre + " (" + cedula + ")";
     }
 }

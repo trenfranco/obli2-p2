@@ -3,7 +3,11 @@ package interfaz;
 import interfaz.areas.VentanaAreasAlta;
 import interfaz.areas.VentanaAreasBaja;
 import interfaz.areas.VentanaAreasModificar;
+import interfaz.areas.VentanaAreasMovimiento;
 import interfaz.managers.VentanaManagersAlta;
+import interfaz.managers.VentanaManagersBaja;
+import interfaz.managers.VentanaManagersModificar;
+import interfaz.empleados.VentanaEmpleadosAlta;
 import logica.Sistema;
 import logica.Persistencia;
 import javax.swing.*;
@@ -50,6 +54,16 @@ public class VentanaMenuPrincipal extends JFrame {
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Persistencia.guardarSistema(sistema);
+                dispose();
+                System.exit(0);
+            }
+        });
+
         setResizable(false);
 
         addWindowListener(new WindowAdapter() {
@@ -115,6 +129,12 @@ public class VentanaMenuPrincipal extends JFrame {
                 new VentanaAreasModificar(sistema).setVisible(true);
             }
         });
+        itemMovArea.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaAreasMovimiento(sistema).setVisible(true);
+            }
+        });
         
         menuAreas.add(itemAltaArea);
         menuAreas.add(itemBajaArea);
@@ -135,6 +155,18 @@ public class VentanaMenuPrincipal extends JFrame {
                 new VentanaManagersAlta(sistema).setVisible(true);
             }
         });
+        itemBajaManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaManagersBaja(sistema).setVisible(true);
+            }
+        });
+        itemModManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaManagersModificar(sistema).setVisible(true);
+            }
+        });
         
         menuManagers.add(itemAltaManager);
         menuManagers.add(itemBajaManager);
@@ -144,6 +176,13 @@ public class VentanaMenuPrincipal extends JFrame {
         JMenu menuEmpleados = new JMenu("Empleados");
         
         JMenuItem itemAltaEmpleado = new JMenuItem("Alta");
+        
+        itemAltaEmpleado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaEmpleadosAlta(sistema).setVisible(true);
+            }
+        });
         
         menuEmpleados.add(itemAltaEmpleado);
         

@@ -45,7 +45,7 @@ public class VentanaManagersBaja extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Baja de manager");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -56,13 +56,12 @@ public class VentanaManagersBaja extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaManagers = new JList<>(modeloLista);
         listaManagers.setBorder(BorderFactory.createTitledBorder("Managers sin empleados a cargo"));
-        listaManagers.setFont(new Font("", Font.BOLD, 16));
+        listaManagers.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaManagers);
         
         // Parte derecha (mostrar informacion del Manager seleccionado y permitir Eliminar)
-        labelTitulo = new JLabel("BAJA DE MANAGER");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("BAJA DE MANAGER", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         labelCedula = new JLabel("<html></html>");

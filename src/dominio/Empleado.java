@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 
 import utilidades.ArchivosCV;
@@ -21,12 +17,14 @@ public class Empleado implements Serializable {
     private Manager manager;
     private String texto_curriculum;
     private String cedula;
-    private String celular;
-    private int antiguedad;
+    private String celular;;
+    private Manager manager;
+    private Area area;
     private int mes_entrada;
     
-    
+
     public Empleado(String nombre, int salario, Area area, String texto_curriculum, String ci, String cel, int antiguedad, Manager manager) {
+
         this.id = contador_ids;
         contador_ids++;
 
@@ -36,7 +34,6 @@ public class Empleado implements Serializable {
         this.salario = salario;
         this.cedula = ci;
         this.celular = cel;
-        this.antiguedad = antiguedad;
         this.manager = manager;
         this.mes_entrada = 1;
 
@@ -61,7 +58,7 @@ public class Empleado implements Serializable {
         return nombre;
     }
 
-    public int getSalario() {
+    public double getSalario() {
         return salario;
     }
 
@@ -78,7 +75,7 @@ public class Empleado implements Serializable {
         this.nombre = nombre;
     }
 
-    public void setSalario(int salario) {
+    public void setSalario(double salario) {
         this.salario = salario;
     }
 
@@ -106,14 +103,6 @@ public class Empleado implements Serializable {
         this.celular = cel;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
-    }
-
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
-    }
-    
     public Manager getManager(){
         return manager;
     }

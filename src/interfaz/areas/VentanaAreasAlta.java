@@ -41,7 +41,7 @@ public class VentanaAreasAlta extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Alta de área");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -53,13 +53,12 @@ public class VentanaAreasAlta extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaAreas = new JList<>(modeloLista);
         listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas existentes"));
-        listaAreas.setFont(new Font("", Font.BOLD, 16));
+        listaAreas.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaAreas);
         
         // Parte derecha (Formulario para crear area) 
-        labelTitulo = new JLabel("ALTA DE ÁREA");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("ALTA DE ÁREA", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
         labelNombre = new JLabel("Nombre del Área:");
         labelDescripcion = new JLabel("Descripción:");

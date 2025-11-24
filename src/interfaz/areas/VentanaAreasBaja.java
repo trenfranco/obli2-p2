@@ -44,7 +44,7 @@ public class VentanaAreasBaja extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Baja de área");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -55,13 +55,12 @@ public class VentanaAreasBaja extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaAreas = new JList<>(modeloLista);
         listaAreas.setBorder(BorderFactory.createTitledBorder("Áreas sin empleados"));
-        listaAreas.setFont(new Font("", Font.BOLD, 16));
+        listaAreas.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaAreas);
         
         // Parte derecha (mostrar informacion del area seleccionada y permitir Eliminar)
-        labelTitulo = new JLabel("BAJA DE ÁREA");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("BAJA DE ÁREA", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
         labelNombre = new JLabel("<html></html>"); // Uso de HTML para evitar desbordes por contenidos muy largos.
         labelDescripcion = new JLabel("<html></html>");

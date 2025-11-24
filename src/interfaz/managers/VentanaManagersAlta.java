@@ -43,7 +43,7 @@ public class VentanaManagersAlta extends JFrame {
     private void configurarVentana() {
         setTitle("MARTRE - Alta de manager");
         setIconImage(new ImageIcon(getClass().getResource("/interfaz/images/logo.png")).getImage());
-        setSize(700, 350);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -55,15 +55,14 @@ public class VentanaManagersAlta extends JFrame {
         modeloLista = new DefaultListModel<>();
         listaManagers = new JList<>(modeloLista);
         listaManagers.setBorder(BorderFactory.createTitledBorder("Managers existentes"));
-        listaManagers.setFont(new Font("", Font.BOLD, 16));
+        listaManagers.setFont(new Font("", Font.BOLD, 14));
         JScrollPane scrollLista = new JScrollPane(listaManagers);
         
         // Parte derecha (Formulario para crear Manager) 
-        labelTitulo = new JLabel("ALTA DE MANAGER");
-        labelTitulo.setFont(new Font("", Font.BOLD, 16));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo = new JLabel("ALTA DE MANAGER", SwingConstants.CENTER);
+        labelTitulo.setFont(new Font("", Font.BOLD, 18));
         
-        labelNombre = new JLabel("Nombre del Manager:");
+        labelNombre = new JLabel("Nombre:");
         labelCedula = new JLabel("Cédula:");
         labelAntiguedad = new JLabel("<html>Antigüedad:<br>(en años)</html>"); // JLabel con HTML para poder mostrar texto en otra linea
         labelCelular = new JLabel("Celular:");
@@ -170,7 +169,7 @@ public class VentanaManagersAlta extends JFrame {
     
     public void actualizarLista() {
         modeloLista.clear();
-        ArrayList<Manager> ordenados = new ArrayList<>(sistema.getManagersOrdenados());
+        ArrayList<Manager> ordenados = new ArrayList<>(sistema.getManagersOrdenadosAntiguedadDecreciente());
         for (Manager m : ordenados) {
             modeloLista.addElement(m.getNombre());
         }

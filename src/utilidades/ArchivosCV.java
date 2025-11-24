@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utilidades;
 
 import java.io.File;
@@ -14,7 +10,6 @@ import java.io.IOException;
  * @author franco
  */
 public class ArchivosCV {
-
     private static final String CARPETA_CVS = "cvs";
 
     /**
