@@ -127,7 +127,7 @@ public class TestSistema {
         }
 
         System.out.println("\n===== EMPLEADOS ORDENADOS POR SALARIO =====");
-        for (Empleado e : sistema.getEmpleadosOrdenados()) {
+        for (Empleado e : sistema.getEmpleadosOrdenadosSalarioCreciente()) {
             System.out.println(e.getNombre() + " - $" + e.getSalario());
         }
         

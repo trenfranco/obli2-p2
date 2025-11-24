@@ -3,27 +3,22 @@ package dominio;
 import utilidades.ArchivosCV;
 import java.io.Serializable;
 
-/**
- *
- * @author Usuario
- */
+
 public class Empleado implements Serializable {
     private static int contador_ids = 1;
     
     private int id;
     private String nombre;
-    private int salario;
+    private double salario;
     private Area area;
     private Manager manager;
     private String texto_curriculum;
     private String cedula;
     private String celular;;
-    private Manager manager;
-    private Area area;
     private int mes_entrada;
     
 
-    public Empleado(String nombre, int salario, Area area, String texto_curriculum, String ci, String cel, int antiguedad, Manager manager) {
+    public Empleado(String nombre, double salario, Area area, String texto_curriculum, String ci, String cel, int antiguedad, Manager manager) {
 
         this.id = contador_ids;
         contador_ids++;
