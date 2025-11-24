@@ -322,15 +322,8 @@ public class Sistema implements Serializable {
         return false;
     }
 
-    // Manejo Reportes Inteligentes
-
-    /**
-     * Genera un reporte inteligente sobre el movimiento de un empleado
-     * @param areaOrigen Area de origen del empleado
-     * @param areaDestino Area destino propuesta
-     * @param empleado Empleado a analizar
-     * @return Reporte con análisis de ventajas y desventajas
-     */
+    //Manejo Reportes Inteligentes
+    //Reporte con analisis de ventajas y desventajas
     public Reporte generarReporteInteligente(Area areaOrigen, Area areaDestino, Empleado empleado) {
         Reporte reporte = new Reporte(areaOrigen, areaDestino, empleado);
         reporte.generarReporteConLLM();
