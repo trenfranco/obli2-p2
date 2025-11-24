@@ -17,7 +17,7 @@ public class Reporte {
      * curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \ -H 'Content-Type: application/json' \ -H 'X-goog-api-key: AIzaSyCJDSyarLnTg41OFswBI_HqafYI_W-Zr1E' \ -X POST \ -d '{ "contents": [ { "parts": [ { "text": "Explain how AI works in a few words" } ] } ] }'
      */
 
-    private static final String GEMINI_API_KEY = "AIzaSyD7S6L73MRhvC_epHLpmf3e97y5bzURtr8";
+    private static final String GEMINI_API_KEY = System.getenv("ERP_API_KEY");
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
     private Area areaOrigen;
@@ -48,6 +48,10 @@ public class Reporte {
     }
 
     private String llamarGeminiAPI(String prompt) throws Exception {
+        if (GEMINI_API_KEY == null || GEMINI_API_KEY.isEmpty()) {
+            throw new Exception("Variable de entorno ERP_API_KEY no configurada");
+        }
+
         URL url = new URL(GEMINI_API_URL);
 
         // Abrir connection
